@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Taxify.Domain.Commons;
 
-namespace Taxify.Domain.Entities
+namespace Taxify.Domain.Entities;
+
+public class Driver : Auditable
 {
-    internal class Driver
-    {
-    }
+    public string CardNumber {get; set;}
+    
+    public long UserId { get; set;}
+    public User User { get; set;}   
+
+    public long AttachmentId { get; set;}
+    public Attachment Attachment { get; set;}
 }

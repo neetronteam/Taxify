@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Taxify.Domain.Enums;
 
-namespace Taxify.Domain.Enums
+public enum PaymentType
 {
-    internal class PaymentType
-    {
-    }
+    Cash,
+    UzCard,
+    HUMO,
+    Visa
 }
