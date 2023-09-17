@@ -8,4 +8,19 @@
 
 
 
+  <ItemGroup>
+    <ProjectReference Include="..\Taxify.DataAccess\Taxify.DataAccess.csproj" />
+    <ProjectReference Include="..\Taxify.Domain\Taxify.Domain.csproj" />
+  </ItemGroup>
+
+
+
+
+
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
 </Project>
