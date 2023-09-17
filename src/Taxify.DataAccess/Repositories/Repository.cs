@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Taxify.DataAccess.Contexts;
 using Taxify.DataAccess.Contracts;
 using Taxify.Domain.Commons;
@@ -31,7 +30,8 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
 
     public void Delete(TEntity entity)
     {
-        _set.Remove(entity);
+        entity.IsDeleted = true;
+        _context.Update(entity).State = EntityState.Deleted;
     }
 
     #pragma warning disable
