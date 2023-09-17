@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Taxify.Domain.Enums;
 
-namespace Taxify.Domain.Enums
+public enum Gender
 {
-    internal class Gender
-    {
-    }
+    Male,
+    Famale
 }

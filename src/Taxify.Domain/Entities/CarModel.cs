@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Taxify.Domain.Commons;
 
-namespace Taxify.Domain.Entities
+namespace Taxify.Domain.Entities;
+
+public class CarModel : Auditable
 {
-    internal class CarModel
-    {
-    }
+    public string Brand { get; set; }
+    public string Model { get; set; }
+    public short Version { get; set; }
 }
