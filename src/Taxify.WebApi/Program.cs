@@ -1,3 +1,4 @@
+using Serilog;
 using Taxify.WebApi.Extensions;
 using Taxify.WebApi.Middlewares;
 
@@ -7,8 +8,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddCustomServices();
 
-
-
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog();
 
 
 builder.Services.AddEndpointsApiExplorer();
