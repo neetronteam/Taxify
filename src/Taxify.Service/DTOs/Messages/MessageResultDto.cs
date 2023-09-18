@@ -8,7 +8,7 @@ public class MessageResultDto
 {
     public long Id { get; set; }
     public string Content { get; set; }
-    public UserResultDto User { get; set; }
-    public DriverResultDto driver { get; set; }
-    public AttachmentResultDto Attachment { get; set; }
+    public UserResultDto SenderId { get; set; }
+    public DriverResultDto ReceiveId { get; set; }
+    public AttachmentResultDto? Attachment { get; set; }
 }
