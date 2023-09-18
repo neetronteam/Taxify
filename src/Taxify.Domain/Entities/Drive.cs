@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Security.Cryptography;
+using Taxify.Domain.Commons;
+using Taxify.Domain.Enums;
 
-namespace Taxify.Domain.Entities
+namespace Taxify.Domain.Entities;
+
+public class Drive : Auditable
 {
-    internal class Drive
-    {
-    }
+    public string Description { get; set; }
+    public Decimal Price { get; set; }
+    public PaymentType PaymentType { get; set; }
+    public string From { get; set; }
+    public string To { get; set; }
+    public string Current { get; set; }
 }

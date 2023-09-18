@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Taxify.Domain.Enums;
 
-namespace Taxify.Domain.Enums
+public enum Role
 {
-    internal class Role
-    {
-    }
+    Userm,
+    Admin,
+    SuperAdmin,
+    Driver,
+    Support
 }

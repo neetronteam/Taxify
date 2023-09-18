@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Taxify.Domain.Commons;
 
-namespace Taxify.Domain.Entities
+namespace Taxify.Domain.Entities;
+
+public class Attachment : Auditable
 {
-    internal class Attachment
-    {
-    }
+    public string FileName { get; set; }
+    public string FilePath { get; set; }
 }

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Taxify.Domain.Commons;
 
-namespace Taxify.Domain.Entities
+namespace Taxify.Domain.Entities;
+
+public class Order : Auditable
 {
-    internal class Order
-    {
-    }
+    public short NumberOfPassenger { get; set; }
+    
+    public long UserId { get; set; }
+    public User User { get; set; }
+
+    public long DriverId { get; set; }
+    public Drive Drive { get; set; }
 }
