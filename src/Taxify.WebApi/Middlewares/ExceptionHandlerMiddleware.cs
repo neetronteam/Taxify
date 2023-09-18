@@ -1,4 +1,5 @@
 using Taxify.Service.Exceptions;
+using Taxify.WebApi.Models;
 
 namespace Taxify.WebApi.Middlewares;
 
@@ -21,7 +22,44 @@ public class ExceptionHandlerMiddleware
         }
         catch (NotFoundException exception)
         {
-            
+            context.Response.StatusCode = exception.StatusCode;
+
+            await context.Response.WriteAsJsonAsync(new Responce()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            });
+        }
+        catch (AlreadyExistsException exception)
+        {
+            context.Response.StatusCode = exception.StatusCode;
+
+            await context.Response.WriteAsJsonAsync(new Responce()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            });
+        }
+        catch (CustomException exception)
+        {
+            context.Response.StatusCode = exception.StatusCode;
+
+            await context.Response.WriteAsJsonAsync(new Responce()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            });
+        }
+        catch (Exception exception)
+        {
+            context.Response.StatusCode = 500;
+            _logger.LogError(message:exception.ToString());
+
+            await context.Response.WriteAsJsonAsync(new Responce()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            });
         }
     }
 }
