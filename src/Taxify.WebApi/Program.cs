@@ -8,6 +8,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddCustomServices();
 
+builder.Services.AddJwt(builder.Configuration);
+
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
