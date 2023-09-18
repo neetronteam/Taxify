@@ -2,7 +2,7 @@
 
 public enum Role
 {
-    Userm,
+    User,
     Admin,
     SuperAdmin,
     Driver,

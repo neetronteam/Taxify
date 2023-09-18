@@ -1,5 +1,4 @@
 ﻿using Taxify.Domain.Commons;
-
 namespace Taxify.Domain.Entities;
 
 public class Attachment : Auditable
