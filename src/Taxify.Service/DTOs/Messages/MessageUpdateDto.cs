@@ -1,12 +1,10 @@
-﻿using Taxify.Domain.Commons;
+﻿namespace Taxify.Service.DTOs.Messages;
 
-namespace Taxify.Domain.Entities;
-
-public class Message : Auditable
+public class MessageUpdateDto
 {
+    public long Id { get; set; }
     public string Content { get; set; }
     public long FromId { get; set; }
     public long ToId { get; set; }
     public long AttachmentId { get; set; }
-    public Attachment Attachment { get; set; }
 }
