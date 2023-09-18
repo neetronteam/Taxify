@@ -1,10 +1,11 @@
+using Taxify.WebApi.Extensions;
 using Taxify.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-
+builder.Services.AddCustomServices();
 
 
 
