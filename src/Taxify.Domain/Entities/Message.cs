@@ -1,12 +1,17 @@
-﻿using Taxify.Domain.Commons;
+﻿using System.Reflection.Metadata.Ecma335;
+using Taxify.Domain.Commons;
 
 namespace Taxify.Domain.Entities;
 
 public class Message : Auditable
 {
     public string Content { get; set; }
-    public long FromId { get; set; }
-    public long ToId { get; set; }
-    public long AttachmentId { get; set; }
-    public Attachment Attachment { get; set; }
+    public long SenderId { get; set; } 
+    public User Sender { get; set; }
+
+    public long ReceiveId { get; set; }
+    public User Receive { get; set; }
+
+    public long? AttachmentId { get; set; }
+    public Attachment? Attachment { get; set; }
 }
