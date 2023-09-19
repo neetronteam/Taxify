@@ -43,7 +43,7 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
             foreach (var include in includes)
                 entities = entities.Include(include);
 
-        return await entities.FirstOrDefaultAsync();
+        return await entities.Where(t => !t.IsDeleted).FirstOrDefaultAsync();
     }
 
     public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> expression = null, string[] includes = null, bool isTracking = true)
@@ -56,6 +56,6 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
             foreach (var include in includes)
                 entities = entities.Include(include);
 
-        return entities;
+        return entities.Where(t => !t.IsDeleted);
     }
 }
