@@ -50,16 +50,12 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
         return await entities.Where(t => !t.IsDeleted).FirstOrDefaultAsync();
     }
 
-    public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> expression = null, string[] includes = null, bool isTracking = true,bool isDeleted = false)
+    public IQueryable<TEntity> SelectAll(Expression<Func<TEntity, bool>> expression = null, string[] includes = null, bool isTracking = true)
     {
         IQueryable<TEntity> entities = expression == null ? _set.AsQueryable() 
                                                           : _set.Where(expression).AsQueryable();
 
         entities = isTracking ? entities.AsNoTracking() : entities;
-
-        entities = isDeleted
-                    ? entities.Where(entity => entity.IsDeleted == isDeleted)
-                    : entities.Where(entity => entity.IsDeleted == false);
         
         if(includes!=null)
             foreach (var include in includes)
