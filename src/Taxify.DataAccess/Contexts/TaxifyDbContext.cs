@@ -3,9 +3,9 @@ using Taxify.Domain.Entities;
 
 namespace Taxify.DataAccess.Contexts;
 
-public class TaxifyDbContext:DbContext
+public class TaxifyDbContext : DbContext
 {
-    public TaxifyDbContext(DbContextOptions<TaxifyDbContext> options):base(options)
+    public TaxifyDbContext(DbContextOptions<TaxifyDbContext> options) : base(options)
     { }
 
     public DbSet<Attachment> Attachments { get; set; }
