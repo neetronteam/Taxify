@@ -9,6 +9,6 @@ public class Order : Auditable
     public long UserId { get; set; }
     public User User { get; set; }
 
-    public long DriverId { get; set; }
+    public long DriveId { get; set; }
     public Drive Drive { get; set; }
 }

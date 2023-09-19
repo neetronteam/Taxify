@@ -9,8 +9,8 @@ public class Message : Auditable
     public long SenderId { get; set; } 
     public User Sender { get; set; }
 
-    public long ReceiveId { get; set; }
-    public User Receive { get; set; }
+    public long ReceiverId { get; set; }
+    public User Receiver { get; set; }
 
     public long? AttachmentId { get; set; }
     public Attachment? Attachment { get; set; }

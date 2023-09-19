@@ -6,5 +6,5 @@ public class OrderCreationDto
 {
     public short NumberOfPassenger { get; set; }
     public long UserId { get; set; }
-    public long DriverId { get; set; }
+    public long DriveId { get; set; }
 }
