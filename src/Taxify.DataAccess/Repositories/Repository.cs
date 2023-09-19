@@ -34,7 +34,11 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
         _context.Update(entity).State = EntityState.Deleted;
     }
 
-    #pragma warning disable
+    public void Destroy(TEntity entity)
+    {
+        _context.Remove(entity);
+    }
+
     public async ValueTask<TEntity> SelectAsync(Expression<Func<TEntity, bool>> expression, string[] includes = null)
     {
         IQueryable<TEntity> entities = expression == null ? _set.AsQueryable() : _set.Where(expression).AsQueryable();
