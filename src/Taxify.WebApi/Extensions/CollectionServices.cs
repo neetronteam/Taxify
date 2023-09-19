@@ -33,7 +33,7 @@ public static class CollectionServices
                 ValidIssuer = configuration["JWT:Issuer"],
                 ValidAudience = configuration["JWT:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key)
-            };
+            }; 
         });
     }
 }
