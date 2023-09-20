@@ -24,9 +24,9 @@ public class ColorService : IColorService
     {
         var existColor = await this.unitOfWork
                         .ColorRepository
-                        .SelectAsync(color => color.Name.Equals(dto.Name));
+                        .SelectAsync(expression: color => color.Name.Equals(dto.Name));
         if (existColor is not null)
-            throw new AlreadyExistsException(message: "This color is already exist");
+            throw new AlreadyExistsException(message: "This driver already exists");
 
         var mappedColor = this.mapper.Map<Color>(source: dto);
         await this.unitOfWork.ColorRepository.CreateAsync(entity: mappedColor);
@@ -39,7 +39,7 @@ public class ColorService : IColorService
     {
         var existColor = await this.unitOfWork
                         .ColorRepository
-                        .SelectAsync(color => color.Id.Equals(dto.Id))
+                        .SelectAsync(expression: color => color.Id.Equals(dto.Id))
             ?? throw new NotFoundException(message: "This color is not found");
 
         var mappedColor = this.mapper.Map(source: dto, destination: existColor);
@@ -53,7 +53,7 @@ public class ColorService : IColorService
     {
         var existColor = await this.unitOfWork
                         .ColorRepository
-                        .SelectAsync(color => color.Id.Equals(id))
+                        .SelectAsync(expression: color => color.Id.Equals(id))
             ?? throw new NotFoundException(message: "This color is not found");
 
         this.unitOfWork.ColorRepository.Delete(entity: existColor);
@@ -65,7 +65,7 @@ public class ColorService : IColorService
     {
         var existColor = await this.unitOfWork
                         .ColorRepository
-                        .SelectAsync(color => color.Id.Equals(id))
+                        .SelectAsync(expression: color => color.Id.Equals(id))
             ?? throw new NotFoundException(message: "This color is not found");
 
         this.unitOfWork.ColorRepository.Destroy(entity: existColor);
@@ -77,7 +77,7 @@ public class ColorService : IColorService
     {
         var existColor = await this.unitOfWork
                         .ColorRepository
-                        .SelectAsync(color => color.Id.Equals(id))
+                        .SelectAsync(expression: color => color.Id.Equals(id))
             ?? throw new NotFoundException(message: "This color is not found");
 
         return this.mapper.Map<ColorResultDto>(source: existColor);
