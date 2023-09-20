@@ -8,6 +8,7 @@ public interface IDriveService
     ValueTask<DriveResultDto> AddAsync(DriveCreationDto dto);
     ValueTask<DriveResultDto> ModifyAsync(DriveUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
+    ValueTask<bool> DestroyAsync(long id);
     ValueTask<DriveResultDto> RetrieveAsync(long id);
     ValueTask<IEnumerable<DriveResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

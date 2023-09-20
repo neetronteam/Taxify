@@ -71,6 +71,19 @@ public class OrderService:IOrderService
         return true;
     }
 
+    public async ValueTask<bool> DestroyAsync(long id)
+    {
+        var existOrder = 
+            await _unitOfWork.OrderRepository.SelectAsync(expression: order =>
+                order.Id == id && order.IsDeleted == false, includes: new[] { "User", "Drive" })
+            ?? throw new NotFoundException(message: "Order is not found");
+        
+        _unitOfWork.OrderRepository.Destroy(entity:existOrder);
+        await _unitOfWork.SaveAsync();
+
+        return true;
+    }
+
     public async ValueTask<OrderResultDto> RetrieveAsync(long id)
     {
         var existOrder = 

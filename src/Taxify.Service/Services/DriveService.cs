@@ -57,6 +57,18 @@ public class DriveService:IDriveService
         return true;
     }
 
+    public async ValueTask<bool> DestroyAsync(long id)
+    {
+        var existDrive = await _unitOfWork.DriveRepository
+                             .SelectAsync(expression: drive => drive.IsDeleted == false && drive.Id == id)
+                         ?? throw new NotFoundException(message: "Drive is not found");
+        
+        _unitOfWork.DriveRepository.Destroy(entity:existDrive);
+        await _unitOfWork.SaveAsync();
+
+        return true;
+    }
+
     public async ValueTask<DriveResultDto> RetrieveAsync(long id)
     {
         var existDrive = await _unitOfWork.DriveRepository
