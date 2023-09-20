@@ -10,7 +10,7 @@ using Taxify.Service.Interfaces;
 
 namespace Taxify.Service.Services;
 
-public class DriveService:IDriveService
+public class DriveService : IDriveService
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
@@ -24,7 +24,6 @@ public class DriveService:IDriveService
     public async ValueTask<DriveResultDto> AddAsync(DriveCreationDto dto)
     {
         var drive = _mapper.Map<Drive>(source: dto);
-
         await _unitOfWork.DriveRepository.CreateAsync(entity: drive);
         await _unitOfWork.SaveAsync();
 
@@ -34,11 +33,10 @@ public class DriveService:IDriveService
     public async ValueTask<DriveResultDto> ModifyAsync(DriveUpdateDto dto)
     {
         var existDrive = await _unitOfWork.DriveRepository
-                             .SelectAsync(expression: drive => drive.IsDeleted == false && drive.Id == dto.Id)
+                         .SelectAsync(expression: drive => drive.Id == dto.Id)
                          ?? throw new NotFoundException(message: "Drive is not found");
 
-        var mappedDrive = _mapper.Map<Drive>(source: existDrive);
-
+        var mappedDrive = _mapper.Map(source: dto,destination: existDrive);
         _unitOfWork.DriveRepository.Update(entity: mappedDrive);
         await _unitOfWork.SaveAsync();
 
@@ -48,31 +46,29 @@ public class DriveService:IDriveService
     public async ValueTask<bool> RemoveAsync(long id)
     {
         var existDrive = await _unitOfWork.DriveRepository
-                             .SelectAsync(expression: drive => drive.IsDeleted == false && drive.Id == id)
+                         .SelectAsync(expression: drive => drive.Id == id)
                          ?? throw new NotFoundException(message: "Drive is not found");
         
         _unitOfWork.DriveRepository.Delete(entity:existDrive);
         await _unitOfWork.SaveAsync();
-
         return true;
     }
 
     public async ValueTask<bool> DestroyAsync(long id)
     {
         var existDrive = await _unitOfWork.DriveRepository
-                             .SelectAsync(expression: drive => drive.IsDeleted == false && drive.Id == id)
+                         .SelectAsync(expression: drive => drive.Id == id)  
                          ?? throw new NotFoundException(message: "Drive is not found");
         
         _unitOfWork.DriveRepository.Destroy(entity:existDrive);
         await _unitOfWork.SaveAsync();
-
         return true;
     }
 
-    public async ValueTask<DriveResultDto> RetrieveAsync(long id)
+    public async ValueTask<DriveResultDto> RetrieveByIdAsync(long id)
     {
         var existDrive = await _unitOfWork.DriveRepository
-                             .SelectAsync(expression: drive => drive.IsDeleted == false && drive.Id == id)
+                         .SelectAsync(expression: drive => drive.Id == id)
                          ?? throw new NotFoundException(message: "Drive is not found");
 
         return _mapper.Map<DriveResultDto>(source: existDrive);
@@ -81,7 +77,7 @@ public class DriveService:IDriveService
     public async ValueTask<IEnumerable<DriveResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var drives = await _unitOfWork.DriveRepository
-                                .SelectAll(expression: drive => drive.IsDeleted == false)
+                                .SelectAll()
                                 .ToPaginate(@params)
                                 .ToListAsync();
 

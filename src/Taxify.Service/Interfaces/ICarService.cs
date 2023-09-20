@@ -8,6 +8,6 @@ public interface ICarService
     ValueTask<CarResultDto> AddAsync(CarCreationDto dto);
     ValueTask<CarResultDto> ModifyAsync(CarUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
-    ValueTask<CarResultDto> RetrieveAsync(long id);
+    ValueTask<CarResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<CarResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

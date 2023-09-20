@@ -9,6 +9,6 @@ public interface IOrderService
     ValueTask<OrderResultDto> ModifyAsync(OrderUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
-    ValueTask<OrderResultDto> RetrieveAsync(long id);
+    ValueTask<OrderResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params);
 }
