@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using Taxify.Domain.Entities;
-using Taxify.Service.DTOs.Attachments;
-using Taxify.Service.DTOs.CarModels;
 using Taxify.Service.DTOs.Cars;
-using Taxify.Service.DTOs.Colors;
-using Taxify.Service.DTOs.Drive;
-using Taxify.Service.DTOs.Drivers;
-using Taxify.Service.DTOs.Messages;
-using Taxify.Service.DTOs.Orders;
 using Taxify.Service.DTOs.Users;
+using Taxify.Service.DTOs.Drive;
+using Taxify.Service.DTOs.Orders;
+using Taxify.Service.DTOs.Colors;
+using Taxify.Service.DTOs.Drivers;
 using Taxify.Service.DTOs.Vehicles;
+using Taxify.Service.DTOs.Messages;
+using Taxify.Service.DTOs.CarModels;
+using Taxify.Service.DTOs.Attachments;
 
 namespace Taxify.Service.Mapper;
 
