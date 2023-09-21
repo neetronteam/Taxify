@@ -10,5 +10,5 @@ public interface IUserService
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
     ValueTask<UserResultDto> RetrieveByIdAsync(long id);
-    ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params);
+    IEnumerable<UserResultDto> RetrieveAllAsync(PaginationParams @params);
 }

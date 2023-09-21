@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Taxify.DataAccess.Contracts;
-using Taxify.Domain.Configuration;
 using Taxify.Domain.Entities;
-using Taxify.Service.DTOs.Vehicles;
 using Taxify.Service.Exceptions;
 using Taxify.Service.Extensions;
 using Taxify.Service.Interfaces;
+using Taxify.Domain.Configuration;
+using Taxify.DataAccess.Contracts;
+using Taxify.Service.DTOs.Vehicles;
 
 namespace Taxify.Service.Services;
 
@@ -23,10 +23,10 @@ public class VehicleService : IVehicleService
     {
         var mappedVehicle = this.mapper.Map<Vehicle>(dto);
 
-        await unitOfWork.VehicleRepository.CreateAsync(mappedVehicle);
-        await unitOfWork.SaveAsync();
+        await this.unitOfWork.VehicleRepository.CreateAsync(mappedVehicle);
+        await this.unitOfWork.SaveAsync();
 
-        return mapper.Map<VehicleResultDto>(mappedVehicle);
+        return this.mapper.Map<VehicleResultDto>(mappedVehicle);
     }
 
     public async ValueTask<bool> DestroyAsync(long id)
