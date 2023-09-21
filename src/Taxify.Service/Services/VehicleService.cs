@@ -41,6 +41,7 @@ public class VehicleService : IVehicleService
         return true;
     }
 
+
     public async ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
         var existVehicle = await this.unitOfWork.VehicleRepository
@@ -74,7 +75,7 @@ public class VehicleService : IVehicleService
         return this.mapper.Map<IEnumerable<VehicleResultDto>>(vehicles);
     }
 
-    public async ValueTask<VehicleResultDto> RetrieveAsync(long id)
+    public async ValueTask<VehicleResultDto> RetrieveByIdAsync(long id)
     {
         var vehicle = await this.unitOfWork.VehicleRepository.
                                  SelectAsync(x => x.Id.Equals(id) && x.IsDeleted.Equals(false))
