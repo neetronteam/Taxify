@@ -13,6 +13,7 @@ public interface IUnitOfWork:IDisposable
     IRepository<Order> OrderRepository { get; }
     IRepository<User> UserRepository { get; }
     IRepository<Vehicle> VehicleRepository { get; }
+    IRepository<Attachment> AttachmentRepository { get; }
 
     ValueTask SaveAsync();
 }

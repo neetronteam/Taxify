@@ -1,6 +1,6 @@
+using Taxify.Domain.Entities;
 using Taxify.DataAccess.Contexts;
 using Taxify.DataAccess.Contracts;
-using Taxify.Domain.Entities;
 
 namespace Taxify.DataAccess.Repositories;
 
@@ -20,6 +20,7 @@ public class UnitOfWork:IUnitOfWork
         OrderRepository = new Repository<Order>(_context);
         UserRepository = new Repository<User>(_context);
         VehicleRepository = new Repository<Vehicle>(_context);
+        AttachmentRepository = new Repository<Attachment>(_context);
     }
 
     public IRepository<Car> CarRepository { get; }
@@ -31,6 +32,7 @@ public class UnitOfWork:IUnitOfWork
     public IRepository<Order> OrderRepository { get; }
     public IRepository<User> UserRepository { get; }
     public IRepository<Vehicle> VehicleRepository { get; }
+    public IRepository<Attachment> AttachmentRepository { get; }
 
     public async ValueTask SaveAsync() => await _context.SaveChangesAsync();
     
