@@ -84,4 +84,4 @@ public class UserService : IUserService
                                         ?? throw new NotFoundException("User is not found");
         return this.mapper.Map<UserResultDto>(user);
     }
-
+}
