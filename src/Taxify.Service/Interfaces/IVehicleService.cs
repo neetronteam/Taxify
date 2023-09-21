@@ -9,6 +9,6 @@ public interface IVehicleService
     ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
-    ValueTask<VehicleResultDto> RetrieveAsync(long id);
+    ValueTask<VehicleResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<VehicleResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

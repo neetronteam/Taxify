@@ -9,6 +9,6 @@ public interface IUserService
     ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
-    ValueTask<UserResultDto> RetrieveAsync(long id);
+    ValueTask<UserResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync(PaginationParams @params);
 }

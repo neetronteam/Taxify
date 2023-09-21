@@ -23,15 +23,13 @@ public class OrderService:IOrderService
 
     public async ValueTask<OrderResultDto> AddAsync(OrderCreationDto dto)
     {
-        var existUser =
-            await _unitOfWork.UserRepository.SelectAsync(expression: user =>
-                user.IsDeleted == false && user.Id == dto.UserId)
-            ?? throw new NotFoundException(message: "User is not found");
+        var existUser = await _unitOfWork.UserRepository
+                    .SelectAsync(expression: user => user.Id == dto.UserId)
+                    ?? throw new NotFoundException(message: "User is not found");
 
-        var existDrive =
-            await _unitOfWork.DriveRepository.SelectAsync(expression: drive =>
-                drive.IsDeleted == false && drive.Id == dto.DriveId)
-            ?? throw new NotFoundException(message: "Drive is not found");
+        var existDrive = await _unitOfWork.DriveRepository
+                        .SelectAsync(expression: drive => drive.Id == dto.DriveId)
+                        ?? throw new NotFoundException(message: "Drive is not found");
 
         var order = _mapper.Map<Order>(source: dto);
         order.User = existUser;
@@ -45,10 +43,9 @@ public class OrderService:IOrderService
 
     public async ValueTask<OrderResultDto> ModifyAsync(OrderUpdateDto dto)
     {
-        var existOrder = 
-            await _unitOfWork.OrderRepository.SelectAsync(expression: order =>
-                order.Id == dto.Id && order.IsDeleted == false, includes: new[] { "User", "Drive" })
-            ?? throw new NotFoundException(message: "Order is not found");
+        var existOrder = await _unitOfWork.OrderRepository
+                        .SelectAsync(expression: order => order.Id == dto.Id, includes: new[] { "User", "Drive" })
+                        ?? throw new NotFoundException(message: "Order is not found");
 
         var mappedOrder = _mapper.Map(source: dto, destination: existOrder);
         
@@ -60,10 +57,9 @@ public class OrderService:IOrderService
 
     public async ValueTask<bool> RemoveAsync(long id)
     {
-        var existOrder = 
-            await _unitOfWork.OrderRepository.SelectAsync(expression: order =>
-                order.Id == id && order.IsDeleted == false, includes: new[] { "User", "Drive" })
-            ?? throw new NotFoundException(message: "Order is not found");
+        var existOrder = await _unitOfWork.OrderRepository
+                        .SelectAsync(expression: order => order.Id == id, includes: new[] { "User", "Drive" })
+                        ?? throw new NotFoundException(message: "Order is not found");
         
         _unitOfWork.OrderRepository.Delete(entity:existOrder);
         await _unitOfWork.SaveAsync();
@@ -73,10 +69,9 @@ public class OrderService:IOrderService
 
     public async ValueTask<bool> DestroyAsync(long id)
     {
-        var existOrder = 
-            await _unitOfWork.OrderRepository.SelectAsync(expression: order =>
-                order.Id == id && order.IsDeleted == false, includes: new[] { "User", "Drive" })
-            ?? throw new NotFoundException(message: "Order is not found");
+        var existOrder = await _unitOfWork.OrderRepository
+                        .SelectAsync(expression: order => order.Id == id, includes: new[] { "User", "Drive" })
+                        ?? throw new NotFoundException(message: "Order is not found");
         
         _unitOfWork.OrderRepository.Destroy(entity:existOrder);
         await _unitOfWork.SaveAsync();
@@ -84,12 +79,11 @@ public class OrderService:IOrderService
         return true;
     }
 
-    public async ValueTask<OrderResultDto> RetrieveAsync(long id)
+    public async ValueTask<OrderResultDto> RetrieveByIdAsync(long id)
     {
-        var existOrder = 
-            await _unitOfWork.OrderRepository.SelectAsync(expression: order =>
-                order.Id == id && order.IsDeleted == false, includes: new[] { "User", "Drive" })
-            ?? throw new NotFoundException(message: "Order is not found");
+        var existOrder = await _unitOfWork.OrderRepository
+                        .SelectAsync(expression: order => order.Id == id, includes: new[] { "User", "Drive" })
+                        ?? throw new NotFoundException(message: "Order is not found");
 
         return _mapper.Map<OrderResultDto>(source: existOrder);
     }
@@ -97,7 +91,7 @@ public class OrderService:IOrderService
     public async ValueTask<IEnumerable<OrderResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
         var orders = await _unitOfWork.OrderRepository
-            .SelectAll(expression: order => order.IsDeleted == false)
+            .SelectAll()
             .ToPaginate(@params)
             .ToListAsync();
 

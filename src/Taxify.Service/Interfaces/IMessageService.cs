@@ -8,6 +8,6 @@ public interface IMessageService
     ValueTask<MessageResultDto> ModifyAsync(MessageUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
-    ValueTask<MessageResultDto> RetrieveAsync(long id);
+    ValueTask<MessageResultDto> RetrieveByIdAsync(long id);
     ValueTask<IEnumerable<MessageResultDto>> RetrieveAllAsync();
 }
