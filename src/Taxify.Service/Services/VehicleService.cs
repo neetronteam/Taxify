@@ -6,14 +6,15 @@ using Taxify.Service.Interfaces;
 using Taxify.Domain.Configuration;
 using Taxify.DataAccess.Contracts;
 using Taxify.Service.DTOs.Vehicles;
+using Microsoft.EntityFrameworkCore;
 
 namespace Taxify.Service.Services;
 
 public class VehicleService : IVehicleService
 {
-    private readonly IUnitOfWork unitOfWork;
     public readonly IMapper mapper;
-    VehicleService(IMapper mapper, IUnitOfWork unitOfWork)
+    private readonly IUnitOfWork unitOfWork;
+    public VehicleService(IMapper mapper, IUnitOfWork unitOfWork)
     {
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
@@ -40,7 +41,6 @@ public class VehicleService : IVehicleService
 
         return true;
     }
-
 
     public async ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
@@ -70,8 +70,9 @@ public class VehicleService : IVehicleService
 
     public async ValueTask<IEnumerable<VehicleResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var vehicles = this.unitOfWork.VehicleRepository.SelectAll(x => x.IsDeleted.Equals(false))
-                                                        .ToPaginate(@params);
+        var vehicles = await this.unitOfWork.VehicleRepository.SelectAll(x => x.IsDeleted.Equals(false))
+                                                        .ToPaginate(@params)
+                                                        .ToListAsync();
         return this.mapper.Map<IEnumerable<VehicleResultDto>>(vehicles);
     }
 
