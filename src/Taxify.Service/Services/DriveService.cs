@@ -83,4 +83,36 @@ public class DriveService : IDriveService
 
         return _mapper.Map<IEnumerable<DriveResultDto>>(source: drives);
     }
+
+    public async ValueTask<IEnumerable<DriveResultDto>> FilterByDepartureAsync(string departure, PaginationParams @params)
+    {
+        var drives = await _unitOfWork.DriveRepository
+            .SelectAll(expression: drive => drive.Departure.Equals(departure, StringComparison.OrdinalIgnoreCase))
+            .ToPaginate(@params)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<DriveResultDto>>(source: drives);
+    }
+
+    public async ValueTask<IEnumerable<DriveResultDto>> FilterByDestinationAsync(string destination, PaginationParams @params)
+    {
+        var drives = await _unitOfWork.DriveRepository
+            .SelectAll(expression: drive => drive.Destination.Equals(destination, StringComparison.OrdinalIgnoreCase))
+            .ToPaginate(@params)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<DriveResultDto>>(source: drives);
+    }
+
+    public async ValueTask<IEnumerable<DriveResultDto>> FilterByDepartureAndDestination(string departure, string destination, PaginationParams @params)
+    {
+        var drives = await _unitOfWork.DriveRepository
+            .SelectAll(expression: drive => 
+                drive.Departure.Equals(departure, StringComparison.OrdinalIgnoreCase) &&
+                drive.Destination.Equals(destination,StringComparison.OrdinalIgnoreCase))
+            .ToPaginate(@params)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<DriveResultDto>>(source: drives);
+    }
 }
