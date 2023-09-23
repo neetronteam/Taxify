@@ -12,5 +12,8 @@ public class User : Auditable
     public string Password { get; set; }
     public Gender Gender { get; set; }
     public Role Role { get; set; }
+
+    public long? AttachmentId {get;set; }
+    public Attachment? Attachment {get;set; }
 }
 
