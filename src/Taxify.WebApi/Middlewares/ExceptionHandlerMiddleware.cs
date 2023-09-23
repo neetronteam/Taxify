@@ -14,7 +14,7 @@ public class ExceptionHandlerMiddleware
         _logger = logger;
     }
 
-    public async ValueTask Invoke(HttpContext context)
+    public async Task Invoke(HttpContext context)
     {
         try
         {
@@ -24,7 +24,7 @@ public class ExceptionHandlerMiddleware
         {
             context.Response.StatusCode = exception.StatusCode;
 
-            await context.Response.WriteAsJsonAsync(new Responce()
+            await context.Response.WriteAsJsonAsync(new Response()
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
@@ -34,7 +34,7 @@ public class ExceptionHandlerMiddleware
         {
             context.Response.StatusCode = exception.StatusCode;
 
-            await context.Response.WriteAsJsonAsync(new Responce()
+            await context.Response.WriteAsJsonAsync(new Response()
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
@@ -44,7 +44,7 @@ public class ExceptionHandlerMiddleware
         {
             context.Response.StatusCode = exception.StatusCode;
 
-            await context.Response.WriteAsJsonAsync(new Responce()
+            await context.Response.WriteAsJsonAsync(new Response()
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
@@ -55,7 +55,7 @@ public class ExceptionHandlerMiddleware
             context.Response.StatusCode = 500;
             _logger.LogError(message:exception.ToString());
 
-            await context.Response.WriteAsJsonAsync(new Responce()
+            await context.Response.WriteAsJsonAsync(new Response()
             {
                 StatusCode = context.Response.StatusCode,
                 Message = exception.Message
