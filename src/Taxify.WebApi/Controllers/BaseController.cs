@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+namespace Taxify.WebApi.Controller;
 
-namespace Taxify.WebApi.Controller
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BaseController : ControllerBase
-    {}
-}
+[ApiController]
+[Route("api/[controller]")]
+public class BaseController : ControllerBase
+{ }

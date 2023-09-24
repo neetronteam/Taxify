@@ -1,4 +1,3 @@
-﻿using Microsoft.AspNetCore.Mvc;
 using Taxify.Domain.Configuration;
 using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
@@ -7,7 +6,9 @@ using Taxify.WebApi.Models;
 
 namespace Taxify.WebApi.Controller;
 
-public class UserController : BaseController
+[ApiController]
+[Route("[controller]")]
+public class UserController : ControllerBase
 {
     private readonly IUserService userService;
     public UserController(IUserService userService)
