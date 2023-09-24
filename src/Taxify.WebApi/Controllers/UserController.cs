@@ -5,8 +5,8 @@ using Taxify.WebApi.Models;
 
 namespace Taxify.WebApi.Controller;
 
-    [ApiController]
-    [Route("[controller]")]
+[ApiController]
+[Route("[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserService userService;
