@@ -14,6 +14,5 @@ public class User : Auditable
     public Role Role { get; set; }
 
     public long? AttachmentId {get;set; }
-    public Attachment? Attachment {get;set; }
+    public Attachment Attachment {get;set; }
 }
-

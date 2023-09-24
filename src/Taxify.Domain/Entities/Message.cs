@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Taxify.Domain.Commons;
+﻿using Taxify.Domain.Commons;
 
 namespace Taxify.Domain.Entities;
 
@@ -13,5 +12,5 @@ public class Message : Auditable
     public User Receiver { get; set; }
 
     public long? AttachmentId { get; set; }
-    public Attachment? Attachment { get; set; }
+    public Attachment Attachment { get; set; }
 }

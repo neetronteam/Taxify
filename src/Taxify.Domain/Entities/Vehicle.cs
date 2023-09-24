@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Taxify.Domain.Commons;
+﻿using Taxify.Domain.Commons;
 
 namespace Taxify.Domain.Entities;
 
