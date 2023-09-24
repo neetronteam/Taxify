@@ -25,7 +25,7 @@ public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
     public void Update(TEntity entity)
     {
         entity.UpdatedAt = DateTime.UtcNow;
-        _context.Update(entity).State = EntityState.Modified;
+        _set.Entry(entity).State = EntityState.Modified;
     }
 
     public void Delete(TEntity entity)

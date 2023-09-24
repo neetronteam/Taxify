@@ -54,12 +54,12 @@ public class UserService : IUserService
 
         dto.Password = dto.Password.Hash();
 
-        var mappedUser = this.mapper.Map<User>(dto);
+        this.mapper.Map(dto,user);
 
-        this.unitOfWork.UserRepository.Update(mappedUser);
+        this.unitOfWork.UserRepository.Update(user);
         await this.unitOfWork.SaveAsync();
 
-        return this.mapper.Map<UserResultDto>(mappedUser);
+        return this.mapper.Map<UserResultDto>(user);
     }
 
     public async ValueTask<bool> RemoveAsync(long id)
