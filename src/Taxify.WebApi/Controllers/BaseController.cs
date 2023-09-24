@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-namespace Taxify.WebApi.Controller;
+namespace Taxify.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

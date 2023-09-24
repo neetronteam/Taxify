@@ -1,8 +1,6 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Taxify.DataAccess.Contexts;
+using System.Text;
 using Taxify.DataAccess.Contracts;
 using Taxify.DataAccess.Repositories;
 using Taxify.Service.Interfaces;
@@ -17,6 +15,11 @@ public static class CollectionServices
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddAutoMapper(typeof(MappingProfile));
+        services.AddScoped<ICarService, CarService>();
+        services.AddScoped<IColorService, ColorService>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
+        services.AddScoped<IUserService, UserService>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
@@ -38,13 +41,7 @@ public static class CollectionServices
                 ValidIssuer = configuration["JWT:Issuer"],
                 ValidAudience = configuration["JWT:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(key)
-            }; 
+            };
         });
-
-        services.AddScoped(typeof(IUnitOfWork),typeof(UnitOfWork));
-        services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-        services.AddScoped<IUserService,UserService>();
-        services.AddAutoMapper(typeof(MappingProfile));
-        services.AddScoped<IAttachmentService,AttachmentService>();
     }
 }

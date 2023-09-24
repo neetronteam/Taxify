@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using Taxify.Domain.Configuration;
 using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
 using Taxify.Service.Interfaces;
 using Taxify.WebApi.Models;
 
-namespace Taxify.WebApi.Controller;
+namespace Taxify.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]

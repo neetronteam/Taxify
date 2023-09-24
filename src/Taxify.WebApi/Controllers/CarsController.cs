@@ -1,36 +1,36 @@
 ﻿using Taxify.WebApi.Models;
-using Taxify.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Taxify.Service.DTOs.Cars;
+using Taxify.WebApi.Controllers;
 using Taxify.Service.Interfaces;
-using Taxify.Service.DTOs.Colors;
 using Taxify.Domain.Configuration;
 
 namespace Taxify.WebApi.Controllers;
 
-public class ColorsController : BaseController
+public class CarsController : BaseController
 {
-    private readonly IColorService colorService;
-    public ColorsController(IColorService colorService)
+    private readonly ICarService carService;
+    public CarsController(ICarService carService)
     {
-        this.colorService = colorService;
+        this.carService = carService;
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> PostAsync(ColorCreationDto dto)
+    public async Task<IActionResult> PostAsync(CarCreationDto dto)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.AddAsync(dto)
+            Data = await this.carService.AddAsync(dto)
         });
 
     [HttpPut("update")]
-    public async Task<IActionResult> PutAsync(ColorUpdateDto dto)
+    public async Task<IActionResult> PutAsync(CarUpdateDto dto)
         => Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.ModifyAsync(dto)
+            Data = await this.carService.ModifyAsync(dto)
         });
 
     [HttpDelete("delete/{id:long}")]
@@ -39,7 +39,7 @@ public class ColorsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.RemoveAsync(id)
+            Data = await this.carService.RemoveAsync(id)
         });
 
     [HttpDelete("destroy/{id:long}")]
@@ -48,7 +48,7 @@ public class ColorsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.DestroyAsync(id)
+            Data = await this.carService.DestroyAsync(id)
         });
 
     [HttpGet("get/{id:long}")]
@@ -57,7 +57,7 @@ public class ColorsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.RetrieveByIdAsync(id)
+            Data = await this.carService.RetrieveByIdAsync(id)
         });
 
     [HttpGet("get-all")]
@@ -66,6 +66,6 @@ public class ColorsController : BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.colorService.RetrieveAllAsync(pagination)
+            Data = await this.carService.RetrieveAllAsync(pagination)
         });
 }
