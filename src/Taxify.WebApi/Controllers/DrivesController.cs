@@ -33,7 +33,7 @@ public class DrivesController:BaseController
             Data = _service.ModifyAsync(dto)
         });
     
-    [HttpDelete("delete-from-clientside")]
+    [HttpDelete("delete")]
     public async ValueTask<IActionResult> DeleteAsync(long driveId)
         => Ok(new Response()
         {
@@ -42,7 +42,7 @@ public class DrivesController:BaseController
             Data = _service.RemoveAsync(driveId)
         });
     
-    [HttpDelete("delete-from-database")]
+    [HttpDelete("destroy")]
     public async ValueTask<IActionResult> DestroyAsync(long driveId)
         => Ok(new Response()
         {
