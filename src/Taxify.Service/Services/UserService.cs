@@ -88,6 +88,25 @@ public class UserService : IUserService
         return this.mapper.Map<UserResultDto>(user);
     }
 
+    public async ValueTask<bool> UpdatePasswordAsync(long userId, string oldPassword, string newPassword)
+    {
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(userId))
+                                         ?? throw new NotFoundException("User is not found!");
+
+        var isVerify = PasswordHasher.Verify(oldPassword,user.Password);
+        if(isVerify is false)
+        {
+            throw new WrongPasswordException("Password is not correct!");
+        }
+
+
+        user.Password = newPassword.Hash();
+        await this.unitOfWork.SaveAsync();
+
+        return true;
+    }
+
+
     public async ValueTask<UserResultDto> UploadImageAsync(long userId, AttachmentCreationDto dto)
     { 
         var user = await this.unitOfWork.UserRepository.SelectAsync(x=> x.Id.Equals(userId) && x.IsDeleted.Equals(false))
@@ -102,4 +121,6 @@ public class UserService : IUserService
 
         return this.mapper.Map<UserResultDto>(user);
     }
+
+
 }

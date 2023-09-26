@@ -12,6 +12,7 @@ public interface IUserService
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
     ValueTask<UserResultDto> RetrieveByIdAsync(long id);
+    ValueTask<bool> UpdatePasswordAsync(long UserId,string oldPassword, string newPassword); 
     ValueTask<UserResultDto> UploadImageAsync(long userId,AttachmentCreationDto dto);
     IEnumerable<UserResultDto> RetrieveAllAsync(PaginationParams @params);
 }
