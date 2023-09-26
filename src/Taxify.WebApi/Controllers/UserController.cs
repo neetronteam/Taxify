@@ -17,7 +17,7 @@ public class UserController : ControllerBase
         this.userService = userService;
     }
 
-    [HttpPost("Create")]
+    [HttpPost("Register")]
     public async Task<IActionResult> PostAsync(UserCreationDto dto)
     {
         return Ok(new Response{
@@ -67,5 +67,15 @@ public class UserController : ControllerBase
         });
     }
 
+    [HttpPost("UpdatePassword")]
+    public async Task<IActionResult> UpdatePasswordAsync(long userId, string oldPassword, string newPassword)
+    {
+        return Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this.userService.UpdatePasswordAsync(userId, oldPassword, newPassword) 
+        });
+    }
 }
 //$2a$11$akTSqMfoa6V4b1CYQjuOY.F2xCuMPMvlbhN9o8Rg65r4erpXI4DO2
