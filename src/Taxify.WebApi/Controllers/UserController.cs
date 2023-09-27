@@ -9,23 +9,35 @@ namespace Taxify.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
     private readonly IUserService userService;
-    public UserController(IUserService userService)
+    public UsersController(IUserService userService)
     {
         this.userService = userService;
     }
 
     [HttpPost("Register")]
-    public async Task<IActionResult> PostAsync(UserCreationDto dto)
+    public async Task<IActionResult> RegisterAsync(UserCreationDto dto)
     {
         return Ok(new Response{
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.AddAsync(dto) 
+            Data = await this.userService.RegisterAsync(dto) 
         });
     }
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> LoginAsync(UserLoginDto dto)
+    {
+        return Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this.userService.LoginAsync(dto)
+        });
+    }
+
 
     [HttpPost("Update")]
     public async Task<IActionResult> UpdateAsync(UserUpdateDto dto)
@@ -68,7 +80,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("UpdatePassword")]
-    public async Task<IActionResult> UpdatePasswordAsync(long userId, string oldPassword, string newPassword)
+    public async Task<IActionResult> ChangePasswordAsync(long userId, string oldPassword, string newPassword)
     {
         return Ok(new Response
         {

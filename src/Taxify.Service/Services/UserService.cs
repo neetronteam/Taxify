@@ -21,7 +21,7 @@ public class UserService : IUserService
         this.unitOfWork = unitOfWork;
         this.attachmentService = attachmentService;
     }
-    public async ValueTask<UserResultDto> AddAsync(UserCreationDto dto)
+    public async ValueTask<UserResultDto> RegisterAsync(UserCreationDto dto)
     {
         var existUser = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone) && x.IsDeleted.Equals(false));
         if (existUser is not null)
@@ -45,6 +45,19 @@ public class UserService : IUserService
         await this.unitOfWork.SaveAsync();
 
         return true;
+    }
+
+    public async ValueTask<UserResultDto> LoginAsync(UserLoginDto dto)
+    {
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone) && x.IsDeleted.Equals(false))
+                         ?? throw new NotFoundException("This user is not found!");
+        
+        var isCorrect = PasswordHasher.Verify(dto.Password,user.Password);
+        
+        if(isCorrect is false)
+            throw new WrongPasswordException("Password is not correct!");
+        
+        return this.mapper.Map<UserResultDto>(user);
     }
 
     public async ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto)
@@ -106,7 +119,6 @@ public class UserService : IUserService
         return true;
     }
 
-
     public async ValueTask<UserResultDto> UploadImageAsync(long userId, AttachmentCreationDto dto)
     { 
         var user = await this.unitOfWork.UserRepository.SelectAsync(x=> x.Id.Equals(userId) && x.IsDeleted.Equals(false))
@@ -121,6 +133,4 @@ public class UserService : IUserService
 
         return this.mapper.Map<UserResultDto>(user);
     }
-
-
 }
