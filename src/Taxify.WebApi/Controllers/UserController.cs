@@ -18,7 +18,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("Register")]
-    public async Task<IActionResult> RegisterAsync(UserCreationDto dto)
+    public async Task<IActionResult> Register(UserCreationDto dto)
     {
         return Ok(new Response{
             StatusCode = 200,
@@ -28,7 +28,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public async Task<IActionResult> LoginAsync(UserLoginDto dto)
+    public async Task<IActionResult> Login(UserLoginDto dto)
     {
         return Ok(new Response
         {
@@ -40,7 +40,7 @@ public class UsersController : ControllerBase
 
 
     [HttpPost("Update")]
-    public async Task<IActionResult> UpdateAsync(UserUpdateDto dto)
+    public async Task<IActionResult> Update(UserUpdateDto dto)
     {
         return Ok(new Response{
             StatusCode = 200,
@@ -50,7 +50,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("Get/{Id}")]
-    public async Task<IActionResult> GetByIdAsync(long Id)
+    public async Task<IActionResult> GetById(long Id)
     {
         return Ok(new Response{
             StatusCode = 200,
@@ -60,7 +60,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("GetAll")]
-    public IActionResult GetAllAsync([FromQuery]PaginationParams @params)
+    public IActionResult GetAll([FromQuery]PaginationParams @params)
     {
         return Ok(new Response{
             StatusCode = 200,
@@ -70,7 +70,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("UploadImage")]
-    public async Task<IActionResult> UploadImageAsync(long userId, [FromForm] AttachmentCreationDto dto)
+    public async Task<IActionResult> UploadImage(long userId, [FromForm] AttachmentCreationDto dto)
     {
         return Ok(new Response{
             StatusCode = 200,
@@ -80,7 +80,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("UpdatePassword")]
-    public async Task<IActionResult> ChangePasswordAsync(long userId, string oldPassword, string newPassword)
+    public async Task<IActionResult> ChangePassword(long userId, string oldPassword, string newPassword)
     {
         return Ok(new Response
         {
