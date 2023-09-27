@@ -7,7 +7,8 @@ namespace Taxify.Service.Interfaces;
 
 public interface IUserService
 {
-    ValueTask<UserResultDto> AddAsync(UserCreationDto dto);
+    ValueTask<UserResultDto> RegisterAsync(UserCreationDto dto);
+    ValueTask<UserResultDto> LoginAsync(UserLoginDto dto);
     ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto);
     ValueTask<bool> RemoveAsync(long id);
     ValueTask<bool> DestroyAsync(long id);
