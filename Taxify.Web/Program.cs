@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Taxify.DataAccess.Contexts;
@@ -10,6 +11,15 @@ using Taxify.Web.Exstentions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder. Services.AddRazorPages();
+
+//Authentication
+builder.Services.AddAuthentication(
+    CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option => {
+        option.LoginPath = "/Home/Index";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    
+    });
 
 // Add services to the container.
 builder.Services.AddDbContext<ITaxifyDbContext>(options =>
@@ -42,6 +52,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthorization();
 
 app.UseAuthorization();
 
