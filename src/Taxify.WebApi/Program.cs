@@ -4,6 +4,7 @@ using Taxify.WebApi.Extensions;
 using Taxify.WebApi.Middlewares;
 using Taxify.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,5 +45,7 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStatusCodePages(Text.Plain, "Status Code Page: {0}");
 
 app.Run();
