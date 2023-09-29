@@ -53,7 +53,6 @@ public class UserService : IUserService
                          ?? throw new NotFoundException("This user is not found!");
         
         var isCorrect = PasswordHasher.Verify(dto.Password,user.Password);
-        
         if(isCorrect is false)
             throw new WrongPasswordException("Password is not correct!");
         
@@ -108,10 +107,7 @@ public class UserService : IUserService
 
         var isVerify = PasswordHasher.Verify(oldPassword,user.Password);
         if(isVerify is false)
-        {
             throw new WrongPasswordException("Password is not correct!");
-        }
-
 
         user.Password = newPassword.Hash();
         await this.unitOfWork.SaveAsync();

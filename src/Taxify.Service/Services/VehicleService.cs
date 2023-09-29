@@ -45,7 +45,7 @@ public class VehicleService : IVehicleService
     public async ValueTask<VehicleResultDto> ModifyAsync(VehicleUpdateDto dto)
     {
         var existVehicle = await this.unitOfWork.VehicleRepository
-                             .SelectAsync(vehicle => vehicle.IsDeleted == false && vehicle.Id == dto.Id)
+                             .SelectAsync(vehicle => vehicle.IsDeleted.Equals(false) && vehicle.Id.Equals(dto.Id))
                          ?? throw new NotFoundException(message: "Vehicle is not found");
 
         var mappedVehicle = this.mapper.Map<Vehicle>(source: existVehicle);

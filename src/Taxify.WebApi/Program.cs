@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCustomServices();
 
-builder.Services.AddDbContext<TaxifyDbContext>(options =>
+builder.Services.AddDbContext<ITaxifyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddJwt(builder.Configuration);
@@ -25,13 +25,11 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
-
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
