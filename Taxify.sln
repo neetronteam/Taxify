@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxify.Domain", "src\Taxify
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxify.DataAccess", "src\Taxify.DataAccess\Taxify.DataAccess.csproj", "{E270FB96-F5D2-40F1-9788-31B36EB09193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxify.Service", "src\Taxify.Service\Taxify.Service.csproj", "{ED40AAAD-0962-433A-9A8B-83068D69AB5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxify.Service", "src\Taxify.Service\Taxify.Service.csproj", "{ED40AAAD-0962-433A-9A8B-83068D69AB5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxify.WebApi", "src\Taxify.WebApi\Taxify.WebApi.csproj", "{C16B4182-0589-4A7B-BE31-8D0639041BB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxify.WebApi", "src\Taxify.WebApi\Taxify.WebApi.csproj", "{C16B4182-0589-4A7B-BE31-8D0639041BB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxify.Web", "Taxify.Web\Taxify.Web.csproj", "{9073095A-A04E-417E-8202-7BAA920DC884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{C16B4182-0589-4A7B-BE31-8D0639041BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C16B4182-0589-4A7B-BE31-8D0639041BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C16B4182-0589-4A7B-BE31-8D0639041BB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9073095A-A04E-417E-8202-7BAA920DC884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9073095A-A04E-417E-8202-7BAA920DC884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9073095A-A04E-417E-8202-7BAA920DC884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9073095A-A04E-417E-8202-7BAA920DC884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{E270FB96-F5D2-40F1-9788-31B36EB09193} = {9D0464E2-E701-43A6-8062-C57F1B54E9F4}
 		{ED40AAAD-0962-433A-9A8B-83068D69AB5A} = {9D0464E2-E701-43A6-8062-C57F1B54E9F4}
 		{C16B4182-0589-4A7B-BE31-8D0639041BB5} = {9D0464E2-E701-43A6-8062-C57F1B54E9F4}
+		{9073095A-A04E-417E-8202-7BAA920DC884} = {9D0464E2-E701-43A6-8062-C57F1B54E9F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {974B7C9F-F949-4C58-B22D-E234A8CA2869}
