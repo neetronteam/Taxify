@@ -16,22 +16,24 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form asp-action="Main" asp-controller="HomeController" method="post">
+                            <form asp-action="Main" method="post">
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg"/>
+                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example1cg">User Name</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="email" id="form3Example3cg" class="form-control form-control-lg" asp-for="Email" />
-                                    <label class="form-label" for="form3Example3cg" asp-for="Email">Your Email</label>
+                                    <input type="tel" id="form3Example3cg" class="form-control form-control-lg" asp-for="Phone" value="@Model.Phone" />
+                                    <label class="form-label" for="form3Example3cg" asp-for="Phone">Your Phone</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg" asp-for="Password" />
+                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg" asp-for="Password" value="@Model.Password" />
                                     <label class="form-label" for="form3Example4cg" asp-for="Password">Password</label>
                                 </div>
-
+                                <p class="text-center" style="color:red">
+                                    <strong>@TempData["Message"]</strong>
+                                </p>
                                 <div class="d-flex justify-content-center">
                                     <button type="submit"
                                             class="btn btn-warning btn-block btn-lg gradient-custom-4 text-body">
