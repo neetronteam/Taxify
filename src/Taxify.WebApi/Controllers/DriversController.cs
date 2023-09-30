@@ -1,31 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using Taxify.Domain.Configuration;
-using Taxify.Service.DTOs.Orders;
+using Taxify.Service.DTOs.Drivers;
 using Taxify.Service.Interfaces;
 using Taxify.WebApi.Models;
 
 namespace Taxify.WebApi.Controllers;
 
-public class OrdersController:BaseController
+public class DriversController:BaseController
 {
-    private readonly IOrderService _service;
+    private readonly IDriverService _service;
 
-    public OrdersController(IOrderService service)
+    public DriversController(IDriverService service)
     {
         _service = service;
     }
 
     [HttpPost("create")]
-    public async ValueTask<IActionResult> CreateAsync(OrderCreationDto dto)
+    public async ValueTask<IActionResult> CreateAsync(DriverCreationDto dto)
         => Ok(new Response()
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _service.AddAsync(dto)
+            Data =await _service.AddAsync(dto)
         });
 
     [HttpPut("update")]
-    public async ValueTask<IActionResult> UpdateAsync(OrderUpdateDto dto)
+    public async ValueTask<IActionResult> UpdateAsync(DriverUpdateDto dto)
         => Ok(new Response()
         {
             StatusCode = 200,
@@ -34,32 +34,32 @@ public class OrdersController:BaseController
         });
 
     [HttpDelete("delete")]
-    public async ValueTask<IActionResult> DeleteAsync(long orderId)
+    public async ValueTask<IActionResult> DeleteAsync(long driverId)
         => Ok(new Response()
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _service.RemoveAsync(orderId)
-        });
-    
-    [HttpDelete("destroy")]
-    public async ValueTask<IActionResult> DestroyAsync(long orderId)
-        => Ok(new Response()
-        {
-            StatusCode = 200,
-            Message = "Success",
-            Data = await _service.DestroyAsync(orderId)
+            Data = await _service.RemoveAsync(driverId)
         });
 
-    [HttpGet("get-by-id")]
-    public async ValueTask<IActionResult> GetByIdAsync(long orderId)
+    [HttpDelete("destroy")]
+    public async ValueTask<IActionResult> DestroyAsync(long driverId)
         => Ok(new Response()
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await _service.RetrieveByIdAsync(orderId)
+            Data = await _service.DestroyAsync(driverId)
         });
     
+    [HttpGet("get-by-id")]
+    public async ValueTask<IActionResult> GetByIdAsync(long driverId)
+        => Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await _service.RetrieveByIdAsync(driverId)
+        });
+
     [HttpGet("get-all")]
     public async ValueTask<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         => Ok(new Response()
@@ -68,4 +68,5 @@ public class OrdersController:BaseController
             Message = "Success",
             Data = await _service.RetrieveAllAsync(@params)
         });
+
 }
