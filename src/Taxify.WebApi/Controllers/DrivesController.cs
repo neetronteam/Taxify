@@ -68,4 +68,33 @@ public class DrivesController:BaseController
             Message = "Success",
             Data = _service.RetrieveAllAsync(@params)
         });
+
+    [HttpGet("filter-by-departure")]
+    public async ValueTask<IActionResult> FilterByDepartureAsync(string departure, [FromQuery] PaginationParams @params)
+        => Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = _service.FilterByDepartureAsync(departure, @params)
+        });
+    
+    
+    [HttpGet("filter-by-destination")]
+    public async ValueTask<IActionResult> FilterByDestinationAsync(string destination, [FromQuery] PaginationParams @params)
+        => Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = _service.FilterByDestinationAsync(destination, @params)
+        });
+    
+    
+    [HttpGet("filter-by-departure")]
+    public async ValueTask<IActionResult> FilterByDepartureAndDestinationAsync(string departure,string destination, [FromQuery] PaginationParams @params)
+        => Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = _service.FilterByDepartureAndDestination(departure, destination,@params)
+        });
 }
