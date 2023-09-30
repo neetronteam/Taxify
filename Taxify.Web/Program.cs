@@ -16,7 +16,7 @@ builder. Services.AddRazorPages();
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option => {
-        option.LoginPath = "/Home/Index";
+        option.LoginPath = "/Auth/Index";
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     
     });
@@ -59,7 +59,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Index}/{id?}");
 
 app.Run();
 
