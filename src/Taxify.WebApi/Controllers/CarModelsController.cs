@@ -21,7 +21,7 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.AddAsync(dto)
+            Data = await _service.AddAsync(dto)
         });
 
     [HttpPut("update")]
@@ -30,7 +30,7 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.ModifyAsync(dto)
+            Data = await _service.ModifyAsync(dto)
         });
 
     [HttpDelete("delete")]
@@ -39,7 +39,7 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RemoveAsync(carModelId)
+            Data = await _service.RemoveAsync(carModelId)
         });
     
     [HttpDelete("destroy")]
@@ -48,7 +48,7 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.DestroyAsync(carModelId)
+            Data = await _service.DestroyAsync(carModelId)
         });
     
     [HttpGet("get-by-id")]
@@ -57,7 +57,7 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveByIdAsync(carModelId)
+            Data = await _service.RetrieveByIdAsync(carModelId)
         });
     
     
@@ -67,6 +67,6 @@ public class CarModelsController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveAllAsync(@params)
+            Data = await _service.RetrieveAllAsync(@params)
         });
 }

@@ -21,7 +21,7 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.AddAsync(dto)
+            Data = await _service.AddAsync(dto)
         });
 
     [HttpPut("update")]
@@ -30,7 +30,7 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.ModifyAsync(dto)
+            Data = await _service.ModifyAsync(dto)
         });
 
     [HttpDelete("delete")]
@@ -39,7 +39,7 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RemoveAsync(orderId)
+            Data = await _service.RemoveAsync(orderId)
         });
     
     [HttpDelete("destroy")]
@@ -48,7 +48,7 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.DestroyAsync(orderId)
+            Data = await _service.DestroyAsync(orderId)
         });
 
     [HttpGet("get-by-id")]
@@ -57,7 +57,7 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveByIdAsync(orderId)
+            Data = await _service.RetrieveByIdAsync(orderId)
         });
     
     [HttpGet("get-all")]
@@ -66,6 +66,6 @@ public class OrdersController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveAllAsync(@params)
+            Data = await _service.RetrieveAllAsync(@params)
         });
 }

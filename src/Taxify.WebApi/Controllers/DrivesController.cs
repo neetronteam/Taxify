@@ -21,7 +21,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.AddAsync(dto)
+            Data = await _service.AddAsync(dto)
         });
     
     [HttpPut("update")]
@@ -30,7 +30,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.ModifyAsync(dto)
+            Data = await _service.ModifyAsync(dto)
         });
     
     [HttpDelete("delete")]
@@ -39,7 +39,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RemoveAsync(driveId)
+            Data = await _service.RemoveAsync(driveId)
         });
     
     [HttpDelete("destroy")]
@@ -48,7 +48,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.DestroyAsync(driveId)
+            Data = await _service.DestroyAsync(driveId)
         });
     
     [HttpGet("get-by-id")]
@@ -57,7 +57,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveByIdAsync(driveId)
+            Data = await _service.RetrieveByIdAsync(driveId)
         });
     
     [HttpGet("get-all")]
@@ -66,7 +66,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.RetrieveAllAsync(@params)
+            Data = await _service.RetrieveAllAsync(@params)
         });
 
     [HttpGet("filter-by-departure")]
@@ -75,7 +75,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.FilterByDepartureAsync(departure, @params)
+            Data = await _service.FilterByDepartureAsync(departure, @params)
         });
     
     
@@ -85,7 +85,7 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.FilterByDestinationAsync(destination, @params)
+            Data = await _service.FilterByDestinationAsync(destination, @params)
         });
     
     
@@ -95,6 +95,6 @@ public class DrivesController:BaseController
         {
             StatusCode = 200,
             Message = "Success",
-            Data = _service.FilterByDepartureAndDestination(departure, destination,@params)
+            Data = await _service.FilterByDepartureAndDestination(departure, destination,@params)
         });
 }
