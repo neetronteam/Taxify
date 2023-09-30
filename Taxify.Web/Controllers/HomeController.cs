@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using Taxify.Service.DTOs.Users;
 using Taxify.Service.Interfaces;
 using Taxify.Web.Models;
 
 namespace Taxify.Web.Controllers;
-[System.Web.Mvc.HandleError(ExceptionType = typeof(DbUpdateException), View = "Error")]
+
 public class HomeController : Controller
 {
     private readonly IUserService userService;
@@ -19,30 +21,70 @@ public class HomeController : Controller
         this.userService = userService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Main(UserLoginDto dto)
+    public IActionResult Index(LoginModel model)
     {
+        ClaimsPrincipal claimUser = HttpContext.User;
+
+        if (claimUser.Identity.IsAuthenticated)
+            return RedirectToAction("Main", "Home");
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginModel model)
+    {
+        var userLoginDto = new UserLoginDto
+        {
+            Password = model.Password,
+            Phone = model.Phone
+        };
+
         try
         {
-        var user = await userService.LoginAsync(dto);
-            return RedirectToAction(actionName: "Main");
+            var user = await userService.LoginAsync(userLoginDto);
+            if (user is not null)
+            { 
+                List<Claim> claims = new List<Claim>() { 
+                    new Claim(ClaimTypes.OtherPhone, model.Phone),
+                    new Claim("OtherProperties","Example Role")
+                
+                };
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme );
+
+                AuthenticationProperties properties = new AuthenticationProperties() { 
+                
+                    AllowRefresh = true,
+                    IsPersistent = model.KeepLoggedIn
+                };
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity), properties);
+            
+                return RedirectToAction("Main", "Home");
+
+            }
         }
         catch(Exception ex)
         {
             TempData["Message"] = ex.Message;
-            return RedirectToAction(actionName:"Index",routeValues: dto);
         }
+        return RedirectToAction(actionName:"Index", routeValues: model);
     }
-
+    [Authorize]
     public IActionResult Main()
     {
         return View();
     }
 
-    public IActionResult Index(UserLoginDto dto)
-    {
-        return View(dto);
-    }
+     public async Task<IActionResult> LogOut()
+     {
+         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+         return RedirectToAction("Index","Home");
+     }
+
 
     public IActionResult Privacy()
     {

@@ -1,10 +1,9 @@
-﻿@using Taxify.Service.DTOs.Users;
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
     Layout = "Libaries";
 }
 
-@model UserLoginDto
+@model LoginModel
 
 <section class="vh-100 bg-image"
          style="background-image: url('https://wp-s.ru/wallpapers/15/13/460942472324312/zheltyj-fon-s-liniyami-dlya-rabochego-stola.jpg');image-rendering:inherit">
@@ -16,7 +15,7 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Login</h2>
 
-                            <form asp-action="Main" method="post">
+                            <form asp-action="Login" method="post">
                                 <div class="form-outline mb-4">
                                     <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
                                     <label class="form-label" for="form3Example1cg">User Name</label>
