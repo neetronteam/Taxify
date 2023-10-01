@@ -22,10 +22,12 @@ public class AuthController : Controller
     public IActionResult Index(LoginModel model)
     {
         ClaimsPrincipal claimUser = HttpContext.User;
-
         if (claimUser.Identity.IsAuthenticated)
+        {
+            var result = claimUser.FindFirst(ClaimTypes.MobilePhone).Value;        
+           
             return RedirectToAction("Main", "Home");
-
+        }
         return View(model);
     }
 
@@ -44,7 +46,11 @@ public class AuthController : Controller
             if (user is not null)
             { 
                 List<Claim> claims = new List<Claim>() { 
-                    new Claim(ClaimTypes.OtherPhone, model.Phone),
+                    new Claim(ClaimTypes.MobilePhone, model.Phone),
+                    new Claim(ClaimTypes.Name, user.Firstname),
+                    new Claim(ClaimTypes.Surname, user.Lastname),
+                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.GivenName, user.Username),
                     new Claim("OtherProperties","Example Role")
             
                 };
@@ -69,7 +75,7 @@ public class AuthController : Controller
         {
             TempData["Message"] = ex.Message;
         }
-        return RedirectToAction(actionName:"Index", routeValues: model);
+        return RedirectToAction(actionName:"Index");
     }
 
 }
