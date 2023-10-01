@@ -7,6 +7,7 @@ using Taxify.Service.Interfaces;
 using Taxify.Domain.Configuration;
 using Taxify.DataAccess.Contracts;
 using Taxify.Service.DTOs.Attachments;
+using System.ComponentModel.DataAnnotations;
 
 namespace Taxify.Service.Services;
 
@@ -100,6 +101,13 @@ public class UserService : IUserService
         return this.mapper.Map<UserResultDto>(user);
     }
 
+    public async ValueTask<UserResultDto> RetrieveByPhoneAsync(string phone)
+    {
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(phone) && x.IsDeleted.Equals(false))
+                                        ?? throw new NotFoundException("User is not found!");
+        return this.mapper.Map<UserResultDto>(user);
+    }
+
     public async ValueTask<bool> UpdatePasswordAsync(long userId, string oldPassword, string newPassword)
     {
         var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(userId))
@@ -123,7 +131,6 @@ public class UserService : IUserService
         var createdAttachment = await this.attachmentService.UploadAsync(dto);
         user.AttachmentId = createdAttachment.Id;
         user.Attachment = createdAttachment;
-
         this.unitOfWork.UserRepository.Update(user);
         await this.unitOfWork.SaveAsync();
 

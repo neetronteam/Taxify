@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Security.Principal;
 using Taxify.DataAccess.Contexts;
 using Taxify.DataAccess.Contracts;
 using Taxify.DataAccess.Repositories;
@@ -35,6 +36,11 @@ builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddDbContext<TaxifyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 */
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+
+
 var app = builder.Build();
 
 
@@ -61,5 +67,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Index}/{id?}");
 
-app.Run();
+    app.Run();
+
 

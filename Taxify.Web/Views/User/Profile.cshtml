@@ -1,0 +1,599 @@
+﻿@using Taxify.Service.DTOs.Users;
+
+@{
+    Layout = "Menubar";
+}
+
+@model UserModel
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- This script got from frontendfreecode.com -->
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<style>
+body {
+	background-color: darkgrey;
+}
+.hide {
+	display: none;
+}
+.row {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.card-main {
+	width: 1024px;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	background-color: transparent;
+	border: none;
+}
+.sidebar {
+	width: 25%;
+	background-color: #234560;
+}
+.avatar-wrapper {
+	border: 4px solid #fff;
+	position: relative;
+	height: 120px;
+	width: 120px;
+	margin: 15px auto;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 1px 1px 5px -5px #fff;
+	transition: all 0.3s ease;
+}
+.profile-pic {
+	height: 100%;
+	width: 100%;
+}
+.profile-pic:after {
+	font-family: FontAwesome;
+	content: "";
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	font-size: 100px;
+	color: #fff;
+	background-color: grey;
+	text-align: center;
+	line-height: center;
+}
+.list-group-item {
+	font-size: 16px;
+	font-weight: 500;
+	color: #fff;
+	background-color: #234560;
+	text-align: center;
+	border-color: #7B8B9E;
+}
+.list-group-item .rank {
+	color: #A6C3DB;
+}
+.list-group-item i {
+	color: #A6C3DB;
+	font-size: 20px;
+	font-weight: 500;
+	padding: 10px;
+}
+.list-group-item i:hover {
+	color: #fff;
+	font-size: 24px;
+}
+.rank {
+	color: #A6C3DB;
+}
+.content {
+	width: 75%;
+	background-color: transparent;
+	text-align: center;
+	border-color: #7B8B9E;
+}
+.card-header {
+	background-color: transparent;
+	padding: 0;
+}
+.nav-tabs-style {
+	display: none;
+}
+.nav-link-style {
+	color: #fff;
+	background-color: #234560;
+	font-weight: 500;
+	padding: 20px;
+	border-color: #234560;
+}
+a:hover {
+	color: #A6C3DB;
+	background-color: #234560;
+}
+.nav-link-style.active {
+	color: #234560;
+	background-color: #fff;
+	border: 1px solid #234560;
+	border-bottom: #fff;
+/* 	z-index: 1;
+ */}
+.media (min-width: 768px) {
+	.card-main {
+		width: 768px;
+		flex-direction: row;
+	}
+	.sidebar {
+		width: 25%;
+	}
+	.content {
+		width: 75%;
+	}
+	.nav-tabs-style {
+		display: flex;
+	}
+	.nav-link-style {
+		margin-right: 5px;
+	}
+	.card {
+		border: none;
+	}
+	.card-header {
+		background-color: transparent;
+	}
+	.card .card-header {
+		display: none;
+		color: #fff;
+		background-color: #234560;
+		font-weight: 500;
+		padding: 20px;
+		margin-left: 5px;
+		border-color: #234560;
+	}
+	.card .collapse {
+		display: block;
+	}
+}
+.media (min-width: 1024px) {
+	.card-main {
+		width: 1024px;
+		flex-direction: row;
+	}
+	.sidebar {
+		width: 25%;
+	}
+	.content {
+		width: 75%;
+	}
+	.nav-tabs-style {
+		display: flex;
+	}
+	.nav-link-style {
+		margin-right: 5px;
+	}
+	.card {
+		border: none;
+	}
+	.card-header {
+		background-color: transparent;
+	}
+	.card .card-header {
+		display: none;
+		color: #fff;
+		background-color: #234560;
+		font-weight: 500;
+		padding: 20px;
+		margin-left: 5px;
+		border-color: #234560;
+	}
+	.card .collapse {
+		display: block;
+	}
+}
+.media (max-width: 767px) {
+	.tab-pane .card-header, .card .tab-pane {
+		border: none;
+	}
+	.card-main {
+		width: 375px;
+		flex-direction: column;
+	}
+	.sidebar {
+		width: 100%;
+	}
+	.content {
+		width: 100%;
+		text-align: left;
+	}
+	.tab-content .tab-pane {
+		display: block !important;
+		opacity: 1;
+		border: none;
+		width: 100%;
+	}
+	.nav-link-style {
+		color: #fff;
+		background-color: #234560;
+		border-bottom: 1px solid #7B8B9E;
+	}
+	.card-header a:hover {
+		color: #234560;
+		background-color: #A6C3DB;
+	}
+	.collapsed {
+		background-color: #234560;
+	}
+	li:nth-last-child(2), li:last-child {
+		display: none;
+	}
+}
+</style>
+
+</head>
+<body>
+<div class="container" style="margin-left: 25%">
+    <div class="row">
+        <div class="card card-main">
+            <div class="card sidebar">
+                <div class="avatar-wrapper">
+                    <img class="profile-pic" src="@Model.Image" />
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@Model.Username<br />@Model.FirstName @Model.LastName</li>
+                    <li class="list-group-item">Admin</li>
+                    <li class="list-group-item">
+                        <a class="user-social" href="http://www.frontendfreecode.com/"><i class="fa fa-facebook"></i></a>
+                        <a class="user-social" href="http://www.frontendfreecode.com/"><i class="fa fa-twitter"></i></a>
+                        <a class="user-social" href="http://www.frontendfreecode.com/"><i class="fa fa-instagram"></i></a>
+                    </li>
+                    <li class="list-group-item rank">Ip Address: </br>123.123.12</li>
+                    <li class="list-group-item rank">Your Registration Date: </br>01.01.0001 00:00</li>
+                </ul>
+            </div>
+            <div class="card content">
+                <ul id="tabs" class="nav nav-tabs nav-tabs-style" role="tablist">
+                    <li class="nav-item">
+                        <a id="tab-A" href="#pane-A" class="nav-link nav-link-style active" data-toggle="tab" role="tab">Personal Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="tab-B" href="#pane-B" class="nav-link nav-link-style" data-toggle="tab" role="tab">Security Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="tab-C" href="#pane-C" class="nav-link nav-link-style" data-toggle="tab" role="tab">Communication</a>
+                    </li>
+                </ul>
+                <div id="content" class="tab-content" role="tablist">
+                    <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                        <div class="card-header" role="tab" id="heading-A">
+                            <a class="nav-link nav-link-style" data-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">Personal Information</a>
+                        </div>
+                        <div id="collapse-A" class="collapse" role="tabpanel" data-parent="#content" aria-labelledby="heading-A">
+                            <div class="card-body">
+                                <h3 class="fieldset-title"></h3>
+                                <div class="form-group row">
+                                        @using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                                        new { enctype = "multipart/form-data" }))
+                                        {
+                                            <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Profile photo</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input type="file" name="user_picture" class="form-control-file" asp-for="@Model.Image" />
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-dark position-absolute bottom-0 end-0 me-2 px-5"> Upload </button>
+                                            </div>
+                                        }
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">User name</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="user_name" placeholder="Your User Name"
+                                                value="@Model.Username" require>
+                                    </div>
+                                </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Firstname</label>
+                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                            <input type="tel" class="form-control" name="user_email" placeholder="Firstname"
+                                                   value="@Model.FirstName">
+                                        </div>
+                                    </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Lastname</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" name="user_namesurname" placeholder="Lastname"
+                                                   value="@Model.LastName">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Phone</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="tel" class="form-control" name="user_email" placeholder="Phone"
+                                                value="@Model.Phone">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Old Passrowd</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="tel" class="form-control" name="user_email" placeholder="Old password"
+                                                value="">
+                                    </div>
+                                </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">New Password</label>
+                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                            <input type="password" class="form-control" name="user_email" placeholder="New Password"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                <div>
+                                    <div>
+                                            <button class="btn btn-dark position-absolute bottom-0 end-0 me-2 px-5"> Save </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+                        <div class="card-header" role="tab" id="heading-B">
+                            <a class="nav-link nav-link-style collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false" aria-controls="collapse-B">Security Settings</a>
+                        </div>
+                        <div id="collapse-B" class="collapse" role="tabpanel" data-parent="#content" aria-labelledby="heading-B">
+                            <div class="card-body">
+                                <h3 class="fieldset-title"></h3>
+                                <!-- question group -->
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Secret Question</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <select id="reg_userquestion" class="form-control" name="user_question">
+                                            <option> Choose Your Security Question</option>
+                                            <option selected value="1">A</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- answer group -->
+                                @* <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Yanıt</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="text" id="reg_useranswer" name="user_answer" class="form-control" value="" placeholder="Your answer">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Password</label>
+                                    <div class="input-group col-md-10 col-sm-9 col-xs-12">
+                                        <input type="password" id="reg_userpassword" class="form-control" name="user_password" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true"
+                                                placeholder="Your password" value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-append1" onclick="togglePassword()">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- password progresbar -->
+                                    <div class="progress mt-1" id="reg-password-strength">
+                                        <div id="password-strength" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                        </div>
+                                    </div>
+                                    <!-- Password Rules -->
+                                    <div id="reg_passwordrules" class="hide password-rule mt-2">
+                                        <small>
+                                            <ul class="list-unstyled">
+                                                <li class="">
+                                                    <span class="eight-character"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    &nbsp; min 8 character
+                                                </li>
+                                                <li class="">
+                                                    <span class="low-upper-case"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    &nbsp; min 1 uppercase & 1 lowercase character
+                                                </li>
+                                                <li class="">
+                                                    <span class="one-number"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    &nbsp; min 1 number
+                                                </li>
+                                                <li class="">
+                                                    <span class="one-special-char"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                                    &nbsp; min 1 special char (!#$%^&*)
+                                                </li>
+                                            </ul>
+                                        </small>
+                                    </div>
+                                </div> *@
+                               @*  <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Password (Again)</label>
+                                    <div class="input-group col-md-10 col-sm-9 col-xs-12">
+                                        <input type="password" id="reg_userpasswordconfirm" class="form-control" data-placement="bottom" data-toggle="popover" data-container="body" data-html="true"
+                                                placeholder="Your Password (Again)" value="">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-append1" onclick="togglePassword()">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- password-confirm error message -->
+                                    <div class="help-block text-right">
+                                        <small>
+                                            <span id="error-confirmpassword" class="hide pull-right block-help">
+                                                <i class="fa fa-info-circle text-danger" aria-hidden="true"></i>Don't match password'
+                                            </span>
+                                        </small>
+                                    </div>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+                    @* <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+                        <div class="card-header collaped-tab" role="tab" id="heading-C">
+                            <a class="nav-link nav-link-style collapsed" data-toggle="collapse" href="#collapse-C" aria-expanded="false" aria-controls="collapse-C">Communication</a>
+                        </div>
+                        <div id="collapse-C" class="collapse" role="tabpanel" data-parent="#content" aria-labelledby="heading-C">
+                            <div class="card-body">
+                                <h3 class="fieldset-title"></h3>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Facebook</label>
+                                    <div class="input-group col-md-10 col-sm-9 col-xs-12">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">facebook.com/</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="user_fbname" placeholder="Facebook kullanıcı adınız"
+                                                value="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Instagram</label>
+                                    <div class="input-group col-md-10 col-sm-9 col-xs-12">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">instagram.com/</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="user_insname" placeholder="Your Instagram username"
+                                                value="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Twitter</label>
+                                    <div class="input-group col-md-10 col-sm-9 col-xs-12">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">twitter.com/</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="user_twname" placeholder="Your Twitter username"
+                                                value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+$(document).ready(function () {
+    // şifre kurallı değilse butonu disable et
+    $('#reg_userpassword').keyup(function () {
+        var password = $('#reg_userpassword').val();
+        var confirmpassword = $('#reg_userpasswordconfirm').val();
+        if (checkStrength(password) == false) {
+            $('#reg_submit').attr('disabled', true);
+        }
+    });
+    // password-rule divi hide/show
+    $('#reg_userpassword').keyup(function () {
+        if ($('#reg_userpassword').val()) {
+            $('#reg_passwordrules').removeClass('hide');
+            $('#reg-password-strength').removeClass('hide');
+        } else {
+            $('#reg_passwordrules').addClass('hide');
+            $('#reg-password-quality').addClass('hide')
+            $('#reg-password-quality-result').addClass('hide')
+            $('#reg-password-strength').addClass('hide')
+        }
+    });
+    // password-confirm error divi hide/show
+    $('#reg_userpasswordconfirm').blur(function () {
+        if ($('#reg_userpassword').val() !== $('#reg_userpasswordconfirm').val()) {
+            $('#error-confirmpassword').removeClass('hide');
+            $('#reg_submit').attr('disabled', true);
+        } else {
+            $('#error-confirmpassword').addClass('hide');
+            $('#reg_submit').attr('disabled', false);
+        }
+    });
+    $('#reg_submit').hover(function () {
+        if ($('#reg_submit').prop('disabled')) {
+            $('#reg_submit').popover({
+                html: true,
+                trigger: 'hover',
+                placement: 'below',
+                offset: 20,
+                content: function () {
+                    return $('#sign-up-popover').html();
+                }
+            });
+        }
+    });
+    // karakter doğrulama
+    function checkStrength(password) {
+        var strength = 0;
+        //If password contains both lower and uppercase characters, increase strength value.
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+            strength += 1;
+            $('.low-upper-case').addClass('text-success');
+            $('.low-upper-case i').removeClass('fa-check').addClass('fa-check');
+            $('#reg-password-quality').addClass('hide');
+        } else {
+            $('.low-upper-case').removeClass('text-success');
+            $('.low-upper-case i').addClass('fa-check').removeClass('fa-check');
+            $('#reg-password-quality').removeClass('hide');
+        }
+        //If it has numbers and characters, increase strength value.
+        if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) {
+            strength += 1;
+            $('.one-number').addClass('text-success');
+            $('.one-number i').removeClass('fa-check').addClass('fa-check');
+            $('#reg-password-quality').addClass('hide');
+        } else {
+            $('.one-number').removeClass('text-success');
+            $('.one-number i').addClass('fa-check').removeClass('fa-check');
+            $('#reg-password-quality').removeClass('hide');
+        }
+        //If it has one special character, increase strength value.
+        if (password.match(/([!,%,&,#,$,^,*,?,_,~])/)) {
+            strength += 1;
+            $('.one-special-char').addClass('text-success');
+            $('.one-special-char i').removeClass('fa-check').addClass('fa-check');
+            $('#reg-password-quality').addClass('hide');
+        } else {
+            $('.one-special-char').removeClass('text-success');
+            $('.one-special-char i').addClass('fa-check').removeClass('fa-check');
+            $('#reg-password-quality').removeClass('hide');
+        }
+        if (password.length > 7) {
+            strength += 1;
+            $('.eight-character').addClass('text-success');
+            $('.eight-character i').removeClass('fa-check').addClass('fa-check');
+            $('#reg-password-quality').removeClass('hide');
+        } else {
+            $('.eight-character').removeClass('text-success');
+            $('.eight-character i').addClass('fa-check').removeClass('fa-check');
+            $('#reg-password-quality').removeClass('hide');
+        }
+        // ------------------------------------------------------------------------------
+        // If value is less than 2
+        if (strength < 2) {
+            $('#reg-password-quality-result').removeClass()
+            $('#password-strength').addClass('progress-bar-danger');
+            $('#reg-password-quality-result').addClass('text-danger').text('zayıf');
+            $('#password-strength').css('width', '10%');
+        } else if (strength == 2) {
+            $('#reg-password-quality-result').addClass('good');
+            $('#password-strength').removeClass('progress-bar-danger');
+            $('#password-strength').addClass('progress-bar-warning');
+            $('#reg-password-quality-result').addClass('text-warning').text('idare eder')
+            $('#password-strength').css('width', '60%');
+            return 'Week'
+        } else if (strength == 4) {
+            $('#reg-password-quality-result').removeClass()
+            $('#reg-password-quality-result').addClass('strong');
+            $('#password-strength').removeClass('progress-bar-warning');
+            $('#password-strength').addClass('progress-bar-success');
+            $('#reg-password-quality-result').addClass('text-success').text('güçlü');
+            $('#password-strength').css('width', '100%');
+            return 'Strong'
+        }
+    }
+});
+// Şifre gizle göster
+function togglePassword() {
+    var element = document.getElementById('reg_userpassword');
+    element.type = (element.type == 'password' ? 'text' : 'password');
+};
+</script>
+
+</body>
+</html>
