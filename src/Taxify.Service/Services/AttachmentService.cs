@@ -58,4 +58,17 @@ public class AttachmentService : IAttachmentService
 
         return true;
     }
+
+    public async ValueTask<AttachmentResultDto> RetriveByIdAsync(long? id)
+    {
+        var result = await this._unitOfWork.AttachmentRepository.SelectAsync(x => x.Id == id);
+        
+        var attachmentResultDto = new AttachmentResultDto()
+        {
+            FileName = result.FileName,
+            FilePath = result.FilePath
+        };
+        
+        return attachmentResultDto;
+    }
 }

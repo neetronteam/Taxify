@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Security.Principal;
 using Taxify.DataAccess.Contexts;
 using Taxify.DataAccess.Contracts;
 using Taxify.DataAccess.Repositories;
+using Taxify.Service.Helpers;
 using Taxify.Service.Interfaces;
 using Taxify.Service.Mapper;
 using Taxify.Service.Services;
-using Taxify.Web.Exstentions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder. Services.AddRazorPages();
@@ -36,6 +35,9 @@ builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddDbContext<TaxifyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 */
+
+
+PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);

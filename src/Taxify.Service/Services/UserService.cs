@@ -103,9 +103,13 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> RetrieveByPhoneAsync(string phone)
     {
-        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(phone) && x.IsDeleted.Equals(false))
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(phone) && x.IsDeleted.Equals(false))
                                         ?? throw new NotFoundException("User is not found!");
-        return this.mapper.Map<UserResultDto>(user);
+        
+        var attachementResultDto = await this.attachmentService.RetriveByIdAsync(user.AttachmentId);
+        var result = this.mapper.Map<UserResultDto>(user);
+        result.Attachment = attachementResultDto;
+        return result;
     }
 
     public async ValueTask<bool> UpdatePasswordAsync(long userId, string oldPassword, string newPassword)
