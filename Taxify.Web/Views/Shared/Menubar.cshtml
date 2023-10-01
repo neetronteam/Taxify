@@ -11,15 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@1.1.2/dist/css/fastbootstrap.min.css" rel="stylesheet" integrity="sha256-xLGBU65wCDv2/qEdq3ZYw2Qdiia/wxxeGepRyZmpQdY=" crossorigin="anonymous">
     <title>Bootstrap demo</title>
-    <style>
-        .menu-item {
-            color: white;
-        }
-
-        .dropdown-item {
-            color: white;
-        }
-    </style>
+    
 </head>
 <body>
 
@@ -37,7 +29,7 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end bg-info mt-2">
-                        <li><button class="dropdown-item" type="button">Profile</button></li>
+                        <li><a class="dropdown-item"  href="@Url.Action("Profile", "User")">Profile</a></li>
                         <li><button class="dropdown-item" type="button">Settings</button></li>
                         <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")">Log out</a></li>
                     </ul>

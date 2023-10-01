@@ -9,5 +9,9 @@ public class UserController : Controller
         return View();
     }
 
+    public IActionResult Profile()
+    {
+        return View();
+    }
 
 }
