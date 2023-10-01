@@ -7,4 +7,5 @@ public class UserModel
     public string LastName { get;set; }
     public string Phone {get;set; }
     public string Image {get; set; }
+    public IFormFile file {get ; set;} 
 }

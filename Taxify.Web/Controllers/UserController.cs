@@ -26,28 +26,32 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> FileUpload(IFormFile file)
+    public async Task<IActionResult> ImageUpload(UserModel model)
     {
         ClaimsPrincipal claimsUser =  HttpContext.User;
-        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;  
+        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;      
         
         var user = await this.userService.RetrieveByPhoneAsync(Phone);
 
         var attachmentCreation = new AttachmentCreationDto{
-            FormFile = file  
+            FormFile = model.file  
         };
 
         var result = await this.userService.UploadImageAsync(user.Id,attachmentCreation);
 
         var userModel = new UserModel
         {
-            Phone = 
-        }
+            FirstName = result.Firstname,
+            LastName = result.Lastname,
+            Phone = result.Phone,
+            Image = result.Attachment.FilePath,
+            Username = result.Username
+        };
 
-        return View(result);
+        return RedirectToAction("Profile", "User", userModel);
     }
 
-    public IActionResult Profile()
+    public async Task<IActionResult> Profile()
     {
         ClaimsPrincipal claimsUser =  HttpContext.User;
         string Username = claimsUser.FindFirst(ClaimTypes.GivenName).Value;  
@@ -55,15 +59,17 @@ public class UserController : Controller
         string Lastname = claimsUser.FindFirst(ClaimTypes.Surname).Value;  
         string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;  
 
+        var result = await this.userService.RetrieveByPhoneAsync(Phone);
+        
         var userModel = new UserModel
         {
             Username = Username,
             FirstName = Firstname,
             LastName = Lastname,
             Phone = Phone,
+            Image = result.Attachment.FilePath.Replace("D:\\Projects\\Taxify\\Taxify.Web\\wwwroot\\","")
         };
 
         return View(userModel);
     }
-
 }

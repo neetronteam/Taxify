@@ -1,5 +1,6 @@
-﻿using System.Net.Mail;
+﻿using Taxify.Domain.Entities;
 using Taxify.Domain.Enums;
+using Taxify.Service.DTOs.Attachments;
 
 namespace Taxify.Service.DTOs.Users;
 
@@ -13,5 +14,5 @@ public class UserResultDto
     public string Password { get; set; }
     public Gender Gender { get; set; }
     public Role Role { get; set; }
-    public Attachment Attachment {get;set;}
+    public AttachmentResultDto Attachment {get;set;}
 }

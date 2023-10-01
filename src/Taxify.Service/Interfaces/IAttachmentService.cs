@@ -7,4 +7,5 @@ public interface IAttachmentService
 {
     ValueTask<Attachment> UploadAsync(AttachmentCreationDto dto);
     ValueTask<bool> RemoveAsync(Attachment attachment);
+    ValueTask<AttachmentResultDto> RetriveByIdAsync(long? id);
 }
