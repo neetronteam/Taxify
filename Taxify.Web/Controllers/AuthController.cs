@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Taxify.Service.DTOs.Users;
-using Taxify.Service.Services;
-using Taxify.Web.Models;
 using Taxify.Service.Interfaces;
+using Taxify.Web.Models;
 
 namespace Taxify.Web.Controllers;
 
@@ -18,14 +17,12 @@ public class AuthController : Controller
     {
         _logger = logger;
         this.userService = userService;
-    }   
+    }
     public IActionResult Index(LoginModel model)
     {
         ClaimsPrincipal claimUser = HttpContext.User;
         if (claimUser.Identity.IsAuthenticated)
         {
-            var result = claimUser.FindFirst(ClaimTypes.MobilePhone).Value;        
-           
             return RedirectToAction("Main", "Home");
         }
         return View(model);
@@ -33,7 +30,7 @@ public class AuthController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginModel model)
-        {
+    {
         var userLoginDto = new UserLoginDto
         {
             Password = model.Password,
@@ -44,30 +41,31 @@ public class AuthController : Controller
         {
             var user = await userService.LoginAsync(userLoginDto);
             if (user.Role == Domain.Enums.Role.Admin)
-            { 
-                List<Claim> claims = new List<Claim>() { 
+            {
+                List<Claim> claims = new List<Claim>() {
                     new Claim(ClaimTypes.MobilePhone, model.Phone),
                     new Claim(ClaimTypes.Name, user.Firstname),
                     new Claim(ClaimTypes.Surname, user.Lastname),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.GivenName, user.Username),
                     new Claim(ClaimTypes.PrimarySid,$"{user.Id}"),
-                    new Claim("OtherProperties","Example Role")
-            
+                    new Claim("OtherProperties","Example Role"),
+                    new Claim(ClaimTypes.CookiePath, user.Attachment.FileName)
                 };
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme );
+                    CookieAuthenticationDefaults.AuthenticationScheme);
 
-                AuthenticationProperties properties = new AuthenticationProperties() { 
-            
+                AuthenticationProperties properties = new AuthenticationProperties()
+                {
+
                     AllowRefresh = true,
                     IsPersistent = model.KeepLoggedIn
                 };
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity), properties);
-        
+
                 return RedirectToAction("Main", "Home");
             }
             else
@@ -75,11 +73,11 @@ public class AuthController : Controller
                 TempData["Message"] = "This user is not admin";
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             TempData["Message"] = ex.Message;
         }
-        return RedirectToAction(actionName:"Index", routeValues: model);
+        return RedirectToAction(actionName: "Index", routeValues: model);
     }
 
 }

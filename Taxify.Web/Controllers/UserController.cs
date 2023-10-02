@@ -66,9 +66,9 @@ public class UserController : Controller
         }
 
         ClaimsPrincipal claimsUser = HttpContext.User;
-        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;
+        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
 
-        var user = await this.userService.RetrieveByPhoneAsync(Phone);
+        var user = await this.userService.RetrieveByIdAsync(long.Parse(userId));
 
         var attachmentCreation = new AttachmentCreationDto
         {
@@ -82,8 +82,9 @@ public class UserController : Controller
             FirstName = result.Firstname,
             LastName = result.Lastname,
             Phone = result.Phone,
-            Image = result.Attachment.FilePath,
-            Username = result.Username
+            ImageName = result.Attachment.FilePath,
+            Username = result.Username,
+            ImagePath = result.Attachment.FileName
         };
 
         return RedirectToAction("Profile", "User", userModel);
@@ -107,7 +108,8 @@ public class UserController : Controller
                 FirstName = result.Firstname,
                 LastName = result.Lastname,
                 Phone = result.Phone,
-                Image = result.Attachment.FilePath.Replace("D:\\Projects\\Taxify\\Taxify.Web\\wwwroot\\", ""),
+                ImagePath = result.Attachment.FilePath,
+                ImageName = result.Attachment.FileName
             };
         }
         else
@@ -118,7 +120,7 @@ public class UserController : Controller
                 FirstName = result.Firstname,
                 LastName = result.Lastname,
                 Phone = result.Phone,
-                Image = null
+                ImageName = null
             };
         }
         return View(userModel);

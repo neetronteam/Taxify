@@ -5,49 +5,59 @@
 @{
     Layout = "Menubar";
 }
-@model IEnumerable<UserModel>
+@model IEnumerable<UserResultDto>
 
 <div class="row">
-    @foreach (var user in Model)
-    {        
-      <div class="col-xl-3 mb-4" style = "margin-left: 25%">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-center">
-                 @if(user.Image is not null)
-                 {
-                      <img src="@user.Image"
-                       alt=""
-                       style="width: 45px; height: 45px"
-                       class="rounded-circle" />
-                 }
-                  
-                <div class="ms-3">
-                  <p class="fw-bold mb-1">@user.FirstName @user.LastName</p>
-                  <p class="text-muted mb-0">@user.Phone</p>
-                </div>
-              </div>
-              <span class="badge rounded-pill badge-success"></span>
-            </div>
-          </div>
-          <div class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
-            <a
-              class="btn btn-link m-0 text-reset"
-              href="#"
-              role="button"
-              data-ripple-color="primary"
-              >Message<i class="fas fa-envelope ms-2"></i
-            ></a>
-            <a
-              class="btn btn-link m-0 text-reset"
-              href="#"
-              role="button"
-              data-ripple-color="primary"
-              >Call<i class="fas fa-phone ms-2"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-    }
+    <table class="table align-middle  mb-0 bg-white border-dark border-2">
+        <thead class="bg-light">
+            <tr>
+                <th class="ms-5">Name</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Position</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="ms-5 d-flex align-items-center">
+                            @if (user.Attachment is not null)
+                            {
+                                <img src="~/Images/@user.Attachment.FileName"
+                                     alt=""
+                                     style="width: 45px; height: 45px"
+                                     class="rounded-circle" />
+                            }
+                            else
+                            {
+                                <img src="https://yandex.ru/images/search?text=user+icon+svg&img_url=https%3A%2F%2Fsun9-79.userapi.com%2Fimpg%2FW8NOmKHBmjAR4N7fjDExNQJgd6VL-SFY2JUOTQ%2FN42NYR1XxFA.jpg%3Fsize%3D860x900%26quality%3D96%26sign%3D66077dfb15f037ee868acd3156efee77%26c_uniq_tag%3DAFz7Lam5HVjrLJq3LFLUcn59TraQmZ7FEY2NOHyoNV8%26type%3Dalbum&pos=2&rpt=simage&stype=image&lr=10335&parent-reqid=1696249077832871-13387915928370291014-balancer-l7leveler-kubr-yp-sas-159-BAL-7753&source=serp"
+                                     alt=""
+                                     style="width: 45px; height: 45px"
+                                    class="rounded-circle" />
+                            }
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">@user.Firstname @user.Lastname</p>
+                                <p class="text-muted mb-0">@user.Phone</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">@user.Gender</p>
+                    </td>
+                    <td>
+                        <span class="badge badge-success rounded-pill d-inline">Active</span>
+                    </td>
+                    <td>@user.Role</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">Dark</button>
+                        <button type="button" class="btn btn-outline-secondary" data-mdb-ripple-color="dark">Secondary</button>
+                    </td>
+                </tr>
+                }
+            
+        </tbody>
+    </table>
 </div>
