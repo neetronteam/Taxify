@@ -1,6 +1,6 @@
 ﻿namespace Taxify.Service.Interfaces;
 
-internal interface IAuthService
+public interface IAuthService
 {
     ValueTask<string> GenerateTokenAsync(string phone, string originalPassword);
 }
