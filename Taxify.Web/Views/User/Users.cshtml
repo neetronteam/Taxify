@@ -1,0 +1,53 @@
+﻿@using Taxify.Service.DTOs.Users;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "Menubar";
+}
+@model IEnumerable<UserModel>
+
+<div class="row">
+    @foreach (var user in Model)
+    {        
+      <div class="col-xl-3 mb-4" style = "margin-left: 25%">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                 @if(user.Image is not null)
+                 {
+                      <img src="@user.Image"
+                       alt=""
+                       style="width: 45px; height: 45px"
+                       class="rounded-circle" />
+                 }
+                  
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">@user.FirstName @user.LastName</p>
+                  <p class="text-muted mb-0">@user.Phone</p>
+                </div>
+              </div>
+              <span class="badge rounded-pill badge-success"></span>
+            </div>
+          </div>
+          <div class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
+            <a
+              class="btn btn-link m-0 text-reset"
+              href="#"
+              role="button"
+              data-ripple-color="primary"
+              >Message<i class="fas fa-envelope ms-2"></i
+            ></a>
+            <a
+              class="btn btn-link m-0 text-reset"
+              href="#"
+              role="button"
+              data-ripple-color="primary"
+              >Call<i class="fas fa-phone ms-2"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    }
+</div>

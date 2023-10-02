@@ -50,12 +50,12 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("Get/{Id}")]
-    public async Task<IActionResult> GetById(long Id)
+    public async Task<IActionResult> GetById(long id)
     {
         return Ok(new Response{
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.RetrieveByIdAsync(Id) 
+            Data = await this.userService.RetrieveByIdAsync(id) 
         });
     }
 
@@ -90,25 +90,25 @@ public class UsersController : ControllerBase
         });
     }
 
-    [HttpPost("Destroy/{Id}")]
-    public async Task<IActionResult> Destroy(long userId)
+    [HttpPost("Destroy")]
+    public async Task<IActionResult> Destroy(long id)
     {
         return Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.DestroyAsync(userId) 
+            Data = await this.userService.DestroyAsync(id) 
         });
     }
 
-    [HttpPost("Remove/{Id}")]
-    public async Task<IActionResult> Remove(long userId)
+    [HttpPost("Remove")]
+    public async Task<IActionResult> Remove(long id)
     {
         return Ok(new Response
         {
             StatusCode = 200,
             Message = "Success",
-            Data = await this.userService.RemoveAsync(userId) 
+            Data = await this.userService.RemoveAsync(id) 
         });
     }
 }

@@ -96,6 +96,7 @@ public class UserService : IUserService
     {
         var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(id) && x.IsDeleted.Equals(false))
                                         ?? throw new NotFoundException("User is not found!");
+
         var attachementResultDto = await this.attachmentService.RetriveByIdAsync(user.AttachmentId);
        
         var result = this.mapper.Map<UserResultDto>(user);
@@ -144,5 +145,12 @@ public class UserService : IUserService
         await this.unitOfWork.SaveAsync();
 
         return this.mapper.Map<UserResultDto>(user);
+    }
+
+    public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
+    {        
+        var users = this.unitOfWork.UserRepository.SelectAll().ToList();
+
+        return mapper.Map<List<UserResultDto>>(users);
     }
 }

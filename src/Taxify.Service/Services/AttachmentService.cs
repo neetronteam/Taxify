@@ -61,18 +61,18 @@ public class AttachmentService : IAttachmentService
 
     public async ValueTask<AttachmentResultDto> RetriveByIdAsync(long? id)
     {
-        var result = await this._unitOfWork.AttachmentRepository.SelectAsync(x => x.Id == id);
-        
-        if(result is null)
-        {
+        if(id is null)
             return null;
-        };
         
-            var attachmentResultDto = new AttachmentResultDto()
-            {
-                FileName = result.FileName,
-                FilePath = result.FilePath
-            };
+        var result = await this._unitOfWork.AttachmentRepository.SelectAsync(x => x.Id.Equals(id))
+                                ??throw new NotFoundException("This attachment is not found!");
+        
+        var attachmentResultDto = new AttachmentResultDto()
+        {
+            FileName = result.FileName,
+            FilePath = result.FilePath
+        };
         return attachmentResultDto;
     }
+
 }

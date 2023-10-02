@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Security.Claims;
 using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
@@ -22,6 +23,13 @@ public class UserController : Controller
     public IActionResult Index()
     {
         return View();
+    }
+
+    public async ValueTask<IActionResult> Users()
+    {
+        var result = await this.userService.RetrieveAllAsync();
+        
+        return View(result);
     }
 
     [HttpPost]
