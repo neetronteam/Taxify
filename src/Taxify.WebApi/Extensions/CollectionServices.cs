@@ -18,8 +18,14 @@ public static class CollectionServices
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<IColorService, ColorService>();
-        services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IDriveService, DriveService>();
+        services.AddScoped<IDriverService, DriverService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IVehicleService, VehicleService>();
+        services.AddScoped<IMessageService, MessageService>();  
+        services.AddScoped<ICarModelService, CarModelService>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)

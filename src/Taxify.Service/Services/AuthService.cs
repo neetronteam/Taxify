@@ -13,17 +13,17 @@ namespace Taxify.Service.Services;
 
 public class AuthService : IAuthService
 {
+    private readonly IUnitOfWork unitOfWork;
     private readonly IConfiguration configuration;
-    private readonly IRepository<User> userRepository;
-    public AuthService(IRepository<User> userRepository, IConfiguration configuration)
+    public AuthService(IConfiguration configuration, IUnitOfWork unitOfWork)
     {
         this.configuration = configuration;
-        this.userRepository = userRepository;
+        this.unitOfWork = unitOfWork;
     }
 
     public async ValueTask<string> GenerateTokenAsync(string phone, string originalPassword)
     {
-        var user = await this.userRepository.SelectAsync(u => u.Phone.Equals(phone));
+        var user = await this.unitOfWork.UserRepository.SelectAsync(u => u.Phone.Equals(phone));
         if (user is null)
             throw new NotFoundException("This user is not found");
 
