@@ -31,21 +31,13 @@ builder.Services.AddTransient<IUserService,UserService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-/*
-builder.Services.AddDbContext<TaxifyDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-*/
-
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
-
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
