@@ -4,7 +4,6 @@ using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
 using Taxify.Service.Interfaces;
 using Taxify.Web.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Taxify.Web.Controllers;
 
@@ -26,18 +25,49 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> ImageUpload(UserModel model)
+    public async Task<IActionResult> Update(UserModel model)
     {
-        ClaimsPrincipal claimsUser =  HttpContext.User;
-        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;      
-        
-        var user = await this.userService.RetrieveByPhoneAsync(Phone);
+        ClaimsPrincipal claimsUser = HttpContext.User;
+        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
 
-        var attachmentCreation = new AttachmentCreationDto{
-            FormFile = model.file  
+        var user =  await this.userService.RetrieveByIdAsync(long.Parse(userId));
+
+        var userUpdateDto = new UserUpdateDto
+        {
+            Id = long.Parse(userId),
+            Firstname = model.FirstName,
+            Lastname = model.LastName,
+            Phone = model.Phone,
+            Username = model.Username,
+            Role = user.Role,
+            Gender = user.Gender,
         };
 
-        var result = await this.userService.UploadImageAsync(user.Id,attachmentCreation);
+        var result = await this.userService.ModifyAsync(userUpdateDto);
+
+        return RedirectToAction("Profile","User",routeValues: model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ImageUpload(UserModel model)
+    {
+        if(model.file is null)
+        {
+            TempData["Message"] = "Please upload image!";
+            return RedirectToAction("Profile", "User");
+        }
+
+        ClaimsPrincipal claimsUser = HttpContext.User;
+        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;
+
+        var user = await this.userService.RetrieveByPhoneAsync(Phone);
+
+        var attachmentCreation = new AttachmentCreationDto
+        {
+            FormFile = model.file
+        };
+
+        var result = await this.userService.UploadImageAsync(user.Id, attachmentCreation);
 
         var userModel = new UserModel
         {
@@ -53,23 +83,37 @@ public class UserController : Controller
 
     public async Task<IActionResult> Profile()
     {
-        ClaimsPrincipal claimsUser =  HttpContext.User;
-        string Username = claimsUser.FindFirst(ClaimTypes.GivenName).Value;  
-        string Firstname = claimsUser.FindFirst(ClaimTypes.Name).Value;  
-        string Lastname = claimsUser.FindFirst(ClaimTypes.Surname).Value;  
-        string Phone = claimsUser.FindFirst(ClaimTypes.MobilePhone).Value;  
-
-        var result = await this.userService.RetrieveByPhoneAsync(Phone);
+        ClaimsPrincipal claimsUser = HttpContext.User;
         
-        var userModel = new UserModel
-        {
-            Username = Username,
-            FirstName = Firstname,
-            LastName = Lastname,
-            Phone = Phone,
-            Image = result.Attachment.FilePath.Replace("D:\\Projects\\Taxify\\Taxify.Web\\wwwroot\\","")
-        };
+        long userId = long.Parse(claimsUser.FindFirst(ClaimTypes.PrimarySid).Value);
 
+        var result = await this.userService.RetrieveByIdAsync(userId);
+
+        var userModel = new UserModel();
+
+        if (result.Attachment is not null)
+        {
+            userModel = new UserModel
+            {
+                Username = result.Username,
+                FirstName = result.Firstname,
+                LastName = result.Lastname,
+                Phone = result.Phone,
+                Image = result.Attachment.FilePath.Replace("D:\\Projects\\Taxify\\Taxify.Web\\wwwroot\\", ""),
+            };
+        }
+        else
+        {
+            userModel = new UserModel
+            {
+                Username = result.Username,
+                FirstName = result.Firstname,
+                LastName = result.Lastname,
+                Phone = result.Phone,
+                Image = null
+            };
+        }
         return View(userModel);
     }
+
 }

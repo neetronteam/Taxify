@@ -63,12 +63,16 @@ public class AttachmentService : IAttachmentService
     {
         var result = await this._unitOfWork.AttachmentRepository.SelectAsync(x => x.Id == id);
         
-        var attachmentResultDto = new AttachmentResultDto()
+        if(result is null)
         {
-            FileName = result.FileName,
-            FilePath = result.FilePath
+            return null;
         };
         
+            var attachmentResultDto = new AttachmentResultDto()
+            {
+                FileName = result.FileName,
+                FilePath = result.FilePath
+            };
         return attachmentResultDto;
     }
 }

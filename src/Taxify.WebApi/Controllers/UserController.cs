@@ -89,5 +89,26 @@ public class UsersController : ControllerBase
             Data = await this.userService.UpdatePasswordAsync(userId, oldPassword, newPassword) 
         });
     }
+
+    [HttpPost("Destroy/{Id}")]
+    public async Task<IActionResult> Destroy(long userId)
+    {
+        return Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this.userService.DestroyAsync(userId) 
+        });
+    }
+
+    [HttpPost("Remove/{Id}")]
+    public async Task<IActionResult> Remove(long userId)
+    {
+        return Ok(new Response
+        {
+            StatusCode = 200,
+            Message = "Success",
+            Data = await this.userService.RemoveAsync(userId) 
+        });
+    }
 }
-//$2a$11$akTSqMfoa6V4b1CYQjuOY.F2xCuMPMvlbhN9o8Rg65r4erpXI4DO2
