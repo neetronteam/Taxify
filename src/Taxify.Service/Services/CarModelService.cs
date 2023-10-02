@@ -92,7 +92,7 @@ public class CarModelService : ICarModelService
 
     public async ValueTask<IEnumerable<CarModelResultDto>> RetrieveAllAsync(PaginationParams @params)
     {
-        var cars = await _unitOfWork.CarRepository
+        var cars = await _unitOfWork.CarModelRepository
             .SelectAll()
             .ToPaginate(@params)
             .ToListAsync();
