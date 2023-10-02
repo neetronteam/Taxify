@@ -7,8 +7,6 @@
 @model UserModel
 
 <head>
-<!-- This script got from frontendfreecode.com -->
-
 
 <style>
     .container {
@@ -230,12 +228,12 @@
 
 </head>
 
-<div class="container" style="margin-left: 25%; margin-top: 0">
+<div class="container">
     <div class="row mt-2">
         <div class="card card-main">
             <div class="card sidebar">
                 <div class="avatar-wrapper">
-                        <img class="profile-pic" src="~/@Model.Image" />
+                    <img class="profile-pic" src="~/Images/@Model.ImageName" />
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">@Model.Username<br />@Model.FirstName @Model.LastName</li>
@@ -277,7 +275,7 @@
                                         new { enctype = "multipart/form-data" }))
                                         {
                                             <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <input type="file" name="file" class="form-control-file" asp-for="@Model.Image" />
+                                                <input type="file" name="file" class="form-control-file" asp-for="@Model.ImagePath" />
                                                 <input type="submit" value="Upload" class="submit" />
                                             </div>
                                         }

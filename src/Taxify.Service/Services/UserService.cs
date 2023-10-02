@@ -50,7 +50,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> LoginAsync(UserLoginDto dto)
     {
-        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone) && x.IsDeleted.Equals(false))
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone) && x.IsDeleted.Equals(false), includes: new[] {"Attachment"})
                          ?? throw new NotFoundException("This user is not found!");
         
         var isCorrect = PasswordHasher.Verify(dto.Password,user.Password);
@@ -62,7 +62,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> ModifyAsync(UserUpdateDto dto)
     {
-        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone))
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(dto.Id))
                      ?? throw new NotFoundException("This user not found!");
 
         this.mapper.Map(dto,user);
@@ -94,7 +94,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserResultDto> RetrieveByIdAsync(long id)
     {
-        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(id) && x.IsDeleted.Equals(false))
+        var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(id) && x.IsDeleted.Equals(false),includes: new[] {"Attachment"})
                                         ?? throw new NotFoundException("User is not found!");
 
         var attachementResultDto = await this.attachmentService.RetriveByIdAsync(user.AttachmentId);
@@ -149,7 +149,7 @@ public class UserService : IUserService
 
     public async ValueTask<IEnumerable<UserResultDto>> RetrieveAllAsync()
     {        
-        var users = this.unitOfWork.UserRepository.SelectAll().ToList();
+        var users = this.unitOfWork.UserRepository.SelectAll(includes: new[] {"Attachment"} );
 
         return mapper.Map<List<UserResultDto>>(users);
     }
