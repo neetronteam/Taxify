@@ -6,240 +6,232 @@
 
 @model UserModel
 
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
 <!-- This script got from frontendfreecode.com -->
 
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
 <style>
-body {
-	background-color: darkgrey;
-}
-.hide {
-	display: none;
-}
-.row {
-	margin-top: 50px;
-	margin-bottom: 50px;
-}
-.card-main {
-	width: 1024px;
-	display: flex;
-	flex-direction: row;
-	box-sizing: border-box;
-	background-color: transparent;
-	border: none;
-}
-.sidebar {
-	width: 25%;
-	background-color: #234560;
-}
-.avatar-wrapper {
-	border: 4px solid #fff;
-	position: relative;
-	height: 120px;
-	width: 120px;
-	margin: 15px auto;
-	border-radius: 50%;
-	overflow: hidden;
-	box-shadow: 1px 1px 5px -5px #fff;
-	transition: all 0.3s ease;
-}
-.profile-pic {
-	height: 100%;
-	width: 100%;
-}
-.profile-pic:after {
-	font-family: FontAwesome;
-	content: "";
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	font-size: 100px;
-	color: #fff;
-	background-color: grey;
-	text-align: center;
-	line-height: center;
-}
-.list-group-item {
-	font-size: 16px;
-	font-weight: 500;
-	color: #fff;
-	background-color: #234560;
-	text-align: center;
-	border-color: #7B8B9E;
-}
-.list-group-item .rank {
-	color: #A6C3DB;
-}
-.list-group-item i {
-	color: #A6C3DB;
-	font-size: 20px;
-	font-weight: 500;
-	padding: 10px;
-}
-.list-group-item i:hover {
-	color: #fff;
-	font-size: 24px;
-}
-.rank {
-	color: #A6C3DB;
-}
-.content {
-	width: 75%;
-	background-color: transparent;
-	text-align: center;
-	border-color: #7B8B9E;
-}
-.card-header {
-	background-color: transparent;
-	padding: 0;
-}
-.nav-tabs-style {
-	display: none;
-}
-.nav-link-style {
-	color: #fff;
-	background-color: #234560;
-	font-weight: 500;
-	padding: 20px;
-	border-color: #234560;
-}
-a:hover {
-	color: #A6C3DB;
-	background-color: #234560;
-}
-.nav-link-style.active {
-	color: #234560;
-	background-color: #fff;
-	border: 1px solid #234560;
-	border-bottom: #fff;
-/* 	z-index: 1;
- */}
-.media (min-width: 768px) {
-	.card-main {
-		width: 768px;
-		flex-direction: row;
-	}
-	.sidebar {
-		width: 25%;
-	}
-	.content {
-		width: 75%;
-	}
-	.nav-tabs-style {
-		display: flex;
-	}
-	.nav-link-style {
-		margin-right: 5px;
-	}
-	.card {
-		border: none;
-	}
-	.card-header {
-		background-color: transparent;
-	}
-	.card .card-header {
-		display: none;
-		color: #fff;
-		background-color: #234560;
-		font-weight: 500;
-		padding: 20px;
-		margin-left: 5px;
-		border-color: #234560;
-	}
-	.card .collapse {
-		display: block;
-	}
-}
-.media (min-width: 1024px) {
-	.card-main {
-		width: 1024px;
-		flex-direction: row;
-	}
-	.sidebar {
-		width: 25%;
-	}
-	.content {
-		width: 75%;
-	}
-	.nav-tabs-style {
-		display: flex;
-	}
-	.nav-link-style {
-		margin-right: 5px;
-	}
-	.card {
-		border: none;
-	}
-	.card-header {
-		background-color: transparent;
-	}
-	.card .card-header {
-		display: none;
-		color: #fff;
-		background-color: #234560;
-		font-weight: 500;
-		padding: 20px;
-		margin-left: 5px;
-		border-color: #234560;
-	}
-	.card .collapse {
-		display: block;
-	}
-}
-.media (max-width: 767px) {
-	.tab-pane .card-header, .card .tab-pane {
-		border: none;
-	}
-	.card-main {
-		width: 375px;
-		flex-direction: column;
-	}
-	.sidebar {
-		width: 100%;
-	}
-	.content {
-		width: 100%;
-		text-align: left;
-	}
-	.tab-content .tab-pane {
-		display: block !important;
-		opacity: 1;
-		border: none;
-		width: 100%;
-	}
-	.nav-link-style {
-		color: #fff;
-		background-color: #234560;
-		border-bottom: 1px solid #7B8B9E;
-	}
-	.card-header a:hover {
-		color: #234560;
-		background-color: #A6C3DB;
-	}
-	.collapsed {
-		background-color: #234560;
-	}
-	li:nth-last-child(2), li:last-child {
-		display: none;
-	}
-}
+    .container {
+	    background-color: darkgrey;
+    }
+    .hide {
+	    display: none;
+    }
+    .row {
+	    margin-top: 50px;
+	    margin-bottom: 50px;
+    }
+    .card-main {
+	    width: 1024px;
+	    display: flex;
+	    flex-direction: row;
+	    box-sizing: border-box;
+	    background-color: transparent;
+	    border: none;
+    }
+    .sidebar {
+	    width: 25%;
+	    background-color: #234560;
+    }
+    .avatar-wrapper {
+	    border: 4px solid #fff;
+	    position: relative;
+	    height: 120px;
+	    width: 120px;
+	    margin: 15px auto;
+	    border-radius: 50%;
+	    overflow: hidden;
+	    box-shadow: 1px 1px 5px -5px #fff;
+	    transition: all 0.3s ease;
+    }
+    .profile-pic {
+	    height: 100%;
+	    width: 100%;
+    }
+    .profile-pic:after {
+	    font-family: FontAwesome;
+	    content: "";
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    font-size: 100px;
+	    color: #fff;
+	    background-color: grey;
+	    text-align: center;
+	    line-height: center;
+    }
+    .list-group-item {
+	    font-size: 16px;
+	    font-weight: 500;
+	    color: #fff;
+	    background-color: #234560;
+	    text-align: center;
+	    border-color: #7B8B9E;
+    }
+    .list-group-item .rank {
+	    color: #A6C3DB;
+    }
+    .list-group-item i {
+	    color: #A6C3DB;
+	    font-size: 20px;
+	    font-weight: 500;
+	    padding: 10px;
+    }
+    .list-group-item i:hover {
+	    color: #fff;
+	    font-size: 24px;
+    }
+    .rank {
+	    color: #A6C3DB;
+    }
+    .content {
+	    width: 75%;
+	    background-color: transparent;
+	    text-align: center;
+	    border-color: #7B8B9E;
+    }
+    .card-header {
+	    background-color: transparent;
+	    padding: 0;
+    }
+    .nav-tabs-style {
+	    display: none;
+    }
+    .nav-link-style {
+	    color: #fff;
+	    background-color: #234560;
+	    font-weight: 500;
+	    padding: 20px;
+	    border-color: #234560;
+    }
+    a:hover {
+	    color: #A6C3DB;
+	    background-color: #234560;
+    }
+    .nav-link-style.active {
+	    color: #234560;
+	    background-color: #fff;
+	    border: 1px solid #234560;
+	    border-bottom: #fff;
+    /* 	z-index: 1;
+     */}
+    .media (min-width: 768px) {
+	    .card-main {
+		    width: 768px;
+		    flex-direction: row;
+	    }
+	    .sidebar {
+		    width: 25%;
+	    }
+	    .content {
+		    width: 75%;
+	    }
+	    .nav-tabs-style {
+		    display: flex;
+	    }
+	    .nav-link-style {
+		    margin-right: 5px;
+	    }
+	    .card {
+		    border: none;
+	    }
+	    .card-header {
+		    background-color: transparent;
+	    }
+	    .card .card-header {
+		    display: none;
+		    color: #fff;
+		    background-color: #234560;
+		    font-weight: 500;
+		    padding: 20px;
+		    margin-left: 5px;
+		    border-color: #234560;
+	    }
+	    .card .collapse {
+		    display: block;
+	    }
+    }
+    .media (min-width: 1024px) {
+	    .card-main {
+		    width: 1024px;
+		    flex-direction: row;
+	    }
+	    .sidebar {
+		    width: 25%;
+	    }
+	    .content {
+		    width: 75%;
+	    }
+	    .nav-tabs-style {
+		    display: flex;
+	    }
+	    .nav-link-style {
+		    margin-right: 5px;
+	    }
+	    .card {
+		    border: none;
+	    }
+	    .card-header {
+		    background-color: transparent;
+	    }
+	    .card .card-header {
+		    display: none;
+		    color: #fff;
+		    background-color: #234560;
+		    font-weight: 500;
+		    padding: 20px;
+		    margin-left: 5px;
+		    border-color: #234560;
+	    }
+	    .card .collapse {
+		    display: block;
+	    }
+    }
+    .media (max-width: 767px) {
+	    .tab-pane .card-header, .card .tab-pane {
+		    border: none;
+	    }
+	    .card-main {
+		    width: 375px;
+		    flex-direction: column;
+	    }
+	    .sidebar {
+		    width: 100%;
+	    }
+	    .content {
+		    width: 100%;
+		    text-align: left;
+	    }
+	    .tab-content .tab-pane {
+		    display: block !important;
+		    opacity: 1;
+		    border: none;
+		    width: 100%;
+	    }
+	    .nav-link-style {
+		    color: #fff;
+		    background-color: #234560;
+		    border-bottom: 1px solid #7B8B9E;
+	    }
+	    .card-header a:hover {
+		    color: #234560;
+		    background-color: #A6C3DB;
+	    }
+	    .collapsed {
+		    background-color: #234560;
+	    }
+	    li:nth-last-child(2), li:last-child {
+		    display: none;
+	    }
+    }
 </style>
 
 </head>
-<body>
-<div class="container" style="margin-left: 25%">
-    <div class="row">
+
+<div class="container" style="margin-left: 25%; margin-top: 0">
+    <div class="row mt-2">
         <div class="card card-main">
             <div class="card sidebar">
                 <div class="avatar-wrapper">
@@ -278,64 +270,56 @@ a:hover {
                             <div class="card-body">
                                 <h3 class="fieldset-title"></h3>
                                 <div class="form-group row">
+                                        <p class="text-center" style="color:red">
+                                        <strong>@TempData["Message"]</strong>
+                                        </p>
                                         @using (Html.BeginForm("ImageUpload", "User", FormMethod.Post,
                                         new { enctype = "multipart/form-data" }))
                                         {
-                                            <label for="file" class="col-md-2 col-sm-3 col-xs-12 col-form-label">Profile photo</label>
                                             <div class="col-md-10 col-sm-9 col-xs-12">
                                                 <input type="file" name="file" class="form-control-file" asp-for="@Model.Image" />
+                                                <input type="submit" value="Upload" class="submit" />
                                             </div>
-                                            <input type="submit" value="Upload" class="submit" />
                                         }
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">User name</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="user_name" placeholder="Your User Name"
-                                                value="@Model.Username" require>
-                                    </div>
-                                </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Firstname</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input type="tel" class="form-control" name="user_email" placeholder="Firstname"
-                                                   value="@Model.FirstName">
-                                        </div>
-                                    </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Lastname</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="user_namesurname" placeholder="Lastname"
-                                                   value="@Model.LastName">
-                                    </div>
-                                </div>
+                                <form asp-action="Update" >
 
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Phone</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="tel" class="form-control" name="user_email" placeholder="Phone"
-                                                value="@Model.Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Old Passrowd</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="tel" class="form-control" name="user_email" placeholder="Old password"
-                                                value="">
-                                    </div>
-                                </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">New Password</label>
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label" asp-for="Username">User name</label>
                                         <div class="col-md-10 col-sm-9 col-xs-12">
-                                            <input type="password" class="form-control" name="user_email" placeholder="New Password"
-                                                   value="">
+                                            <input type="text" class="form-control"  asp-for = "Username" placeholder="Your User Name"
+                                                    value="@Model.Username">
                                         </div>
                                     </div>
-                                <div>
-                                    <div>
-                                            <button class="btn btn-dark position-absolute bottom-0 end-0 me-2 px-5"> Save </button>
+                                        <div class="form-group row">
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label" asp-for="FirstName">Firstname</label>
+                                            <div class="col-md-10 col-sm-9 col-xs-12">
+                                                <input type="tel" class="form-control" asp-for = "FirstName"  placeholder="Firstname"
+                                                       value="@Model.FirstName">
+                                            </div>
+                                        </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label" asp-for="LastName">Lastname</label>
+                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" asp-for="LastName"  placeholder="Lastname"
+                                                       value="@Model.LastName">
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label" asp-for="Phone">Phone</label>
+                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                            <input type="tel" class="form-control" asp-for="Phone" placeholder="Phone"
+                                                    value="@Model.Phone">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                                <button type = "submit" class="btn btn-dark position-absolute bottom-0 end-0 me-4 mb-2 px-5"> Save </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                 
                             </div>
                         </div>
                     </div>
@@ -347,7 +331,7 @@ a:hover {
                             <div class="card-body">
                                 <h3 class="fieldset-title"></h3>
                                 <!-- question group -->
-                                <div class="form-group row">
+                                @* <div class="form-group row">
                                     <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Secret Question</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
                                         <select id="reg_userquestion" class="form-control" name="user_question">
@@ -355,7 +339,7 @@ a:hover {
                                             <option selected value="1">A</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> *@
                                 <!-- answer group -->
                                 @* <div class="form-group row">
                                     <label class="col-md-2 col-sm-3 col-xs-12 col-form-label">Yanıt</label>
@@ -594,6 +578,4 @@ function togglePassword() {
 };
 </script>
 
-</body>
-</html>
 

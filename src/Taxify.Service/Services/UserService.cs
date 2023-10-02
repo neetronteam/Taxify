@@ -65,8 +65,6 @@ public class UserService : IUserService
         var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Phone.Equals(dto.Phone))
                      ?? throw new NotFoundException("This user not found!");
 
-        dto.Password = dto.Password.Hash();
-
         this.mapper.Map(dto,user);
 
         this.unitOfWork.UserRepository.Update(user);
@@ -98,6 +96,11 @@ public class UserService : IUserService
     {
         var user = await this.unitOfWork.UserRepository.SelectAsync(x => x.Id.Equals(id) && x.IsDeleted.Equals(false))
                                         ?? throw new NotFoundException("User is not found!");
+        var attachementResultDto = await this.attachmentService.RetriveByIdAsync(user.AttachmentId);
+       
+        var result = this.mapper.Map<UserResultDto>(user);
+        result.Attachment = attachementResultDto;
+
         return this.mapper.Map<UserResultDto>(user);
     }
 
@@ -107,8 +110,10 @@ public class UserService : IUserService
                                         ?? throw new NotFoundException("User is not found!");
         
         var attachementResultDto = await this.attachmentService.RetriveByIdAsync(user.AttachmentId);
+       
         var result = this.mapper.Map<UserResultDto>(user);
         result.Attachment = attachementResultDto;
+
         return result;
     }
 

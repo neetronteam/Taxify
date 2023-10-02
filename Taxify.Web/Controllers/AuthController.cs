@@ -43,7 +43,7 @@ public class AuthController : Controller
         try
         {
             var user = await userService.LoginAsync(userLoginDto);
-            if (user is not null)
+            if (user.Role == Domain.Enums.Role.Admin)
             { 
                 List<Claim> claims = new List<Claim>() { 
                     new Claim(ClaimTypes.MobilePhone, model.Phone),
@@ -51,6 +51,7 @@ public class AuthController : Controller
                     new Claim(ClaimTypes.Surname, user.Lastname),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.GivenName, user.Username),
+                    new Claim(ClaimTypes.PrimarySid,$"{user.Id}"),
                     new Claim("OtherProperties","Example Role")
             
                 };
@@ -68,14 +69,17 @@ public class AuthController : Controller
                     new ClaimsPrincipal(claimsIdentity), properties);
         
                 return RedirectToAction("Main", "Home");
-
+            }
+            else
+            {
+                TempData["Message"] = "This user is not admin";
             }
         }
         catch(Exception ex)
         {
             TempData["Message"] = ex.Message;
         }
-        return RedirectToAction(actionName:"Index");
+        return RedirectToAction(actionName:"Index", routeValues: model);
     }
 
 }
