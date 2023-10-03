@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Security.Claims;
+using Taxify.Domain.Entities;
 using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
 using Taxify.Service.Interfaces;
@@ -13,22 +15,37 @@ public class UserController : Controller
     private readonly IUserService userService;
     private readonly IAttachmentService attachmentService;
     private readonly ILogger<HomeController> _logger;
-    public UserController(IUserService userService, ILogger<HomeController> logger, IAttachmentService attachmentService)
+    private readonly IMapper mapper;
+    public UserController(IUserService userService, ILogger<HomeController> logger, IAttachmentService attachmentService, IMapper mapper)
     {
         _logger = logger;
         this.userService = userService;
         this.attachmentService = attachmentService;
+        this.mapper = mapper;
     }
 
     public IActionResult Index()
     {
         return View();
     }
+    
+    public async Task<IActionResult> Edit(User user)
+    {
+        return View(user);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Editer(User user)
+    {
+        var mappedUser = mapper.Map<UserUpdateDto>(user);
+        await this.userService.ModifyAsync(mappedUser);
+        
+        return RedirectToAction("Edit", user);
+    }
 
     public async ValueTask<IActionResult> Users()
     {
         var result = await this.userService.RetrieveAllAsync();
-        
         return View(result);
     }
 
