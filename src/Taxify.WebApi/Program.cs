@@ -5,6 +5,7 @@ using Taxify.WebApi.Middlewares;
 using Taxify.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,13 @@ var logger = new LoggerConfiguration()
                 .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+
+builder.Services.ConfigureSwagger();
+
+builder.Services.AddControllers(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTranformer()));
+});
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
