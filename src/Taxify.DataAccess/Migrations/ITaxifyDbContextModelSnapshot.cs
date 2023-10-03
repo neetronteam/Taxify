@@ -10,7 +10,7 @@ using Taxify.DataAccess.Contexts;
 
 namespace Taxify.DataAccess.Migrations
 {
-    [DbContext(typeof(ITaxifyDbContext))]
+    [DbContext(typeof(TaxifyDbContext))]
     partial class ITaxifyDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

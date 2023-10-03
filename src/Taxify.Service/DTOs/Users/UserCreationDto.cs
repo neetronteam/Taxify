@@ -12,4 +12,3 @@ public class UserCreationDto
     public Gender Gender { get; set; }
     public Role Role { get; set; }
 }
-

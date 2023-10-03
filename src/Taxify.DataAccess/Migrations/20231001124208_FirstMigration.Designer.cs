@@ -11,7 +11,7 @@ using Taxify.DataAccess.Contexts;
 
 namespace Taxify.DataAccess.Migrations
 {
-    [DbContext(typeof(ITaxifyDbContext))]
+    [DbContext(typeof(TaxifyDbContext))]
     [Migration("20231001124208_FirstMigration")]
     partial class FirstMigration
     {

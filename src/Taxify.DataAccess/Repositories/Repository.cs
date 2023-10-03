@@ -8,10 +8,10 @@ namespace Taxify.DataAccess.Repositories;
 
 public class Repository<TEntity>:IRepository<TEntity> where TEntity : Auditable
 {
-    private readonly ITaxifyDbContext _context;
+    private readonly TaxifyDbContext _context;
     private readonly DbSet<TEntity> _set;
 
-    public Repository(ITaxifyDbContext context)
+    public Repository(TaxifyDbContext context)
     {
         _context = context;
         _set = _context.Set<TEntity>();
