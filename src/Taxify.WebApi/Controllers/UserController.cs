@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Taxify.Domain.Configuration;
+using Taxify.Domain.Enums;
 using Taxify.Service.DTOs.Attachments;
 using Taxify.Service.DTOs.Users;
 using Taxify.Service.Interfaces;
@@ -113,7 +114,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPatch("upgrade-role")]
-	public async ValueTask<IActionResult> UpgradeRoleAsync(long id, UserRole role)
+	public async ValueTask<IActionResult> UpgradeRoleAsync(long id, Role role)
 		=> Ok(new Response
 		{
 			StatusCode = 200,

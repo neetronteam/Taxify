@@ -31,7 +31,6 @@ public class UserService : IUserService
 
         dto.Password = dto.Password.Hash();
         var mappedUser = this.mapper.Map<User>(dto);
-
         await this.unitOfWork.UserRepository.CreateAsync(mappedUser);
         await this.unitOfWork.SaveAsync();
 
