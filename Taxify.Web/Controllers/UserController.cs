@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 using System.Security.Claims;
 using Taxify.Domain.Entities;
 using Taxify.Service.DTOs.Attachments;
@@ -28,7 +27,7 @@ public class UserController : Controller
     {
         return View();
     }
-    
+
     public async Task<IActionResult> Edit(User user)
     {
         return View(user);
@@ -39,7 +38,7 @@ public class UserController : Controller
     {
         var mappedUser = mapper.Map<UserUpdateDto>(user);
         await this.userService.ModifyAsync(mappedUser);
-        
+
         return RedirectToAction("Edit", user);
     }
 
@@ -55,7 +54,7 @@ public class UserController : Controller
         ClaimsPrincipal claimsUser = HttpContext.User;
         string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
 
-        var user =  await this.userService.RetrieveByIdAsync(long.Parse(userId));
+        var user = await this.userService.RetrieveByIdAsync(long.Parse(userId));
 
         var userUpdateDto = new UserUpdateDto
         {
@@ -70,13 +69,13 @@ public class UserController : Controller
 
         var result = await this.userService.ModifyAsync(userUpdateDto);
 
-        return RedirectToAction("Profile","User",routeValues: model);
+        return RedirectToAction("Profile", "User", routeValues: model);
     }
 
     [HttpPost]
     public async Task<IActionResult> ImageUpload(UserModel model)
     {
-        if(model.file is null)
+        if (model.file is null)
         {
             TempData["Message"] = "Please upload image!";
             return RedirectToAction("Profile", "User");
@@ -110,7 +109,7 @@ public class UserController : Controller
     public async Task<IActionResult> Profile()
     {
         ClaimsPrincipal claimsUser = HttpContext.User;
-        
+
         long userId = long.Parse(claimsUser.FindFirst(ClaimTypes.PrimarySid).Value);
 
         var result = await this.userService.RetrieveByIdAsync(userId);
