@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCustomServices();
 
-builder.Services.AddDbContext<ITaxifyDbContext>(options =>
+builder.Services.AddDbContext<TaxifyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddJwt(builder.Configuration);

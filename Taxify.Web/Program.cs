@@ -22,7 +22,7 @@ builder.Services.AddAuthentication(
     });
 
 // Add services to the container.
-builder.Services.AddDbContext<ITaxifyDbContext>(options =>
+builder.Services.AddDbContext<TaxifyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IAttachmentService,AttachmentService>();

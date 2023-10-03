@@ -42,16 +42,18 @@ public class AuthController : Controller
             var user = await userService.LoginAsync(userLoginDto);
             if (user.Role == Domain.Enums.Role.Admin)
             {
-                List<Claim> claims = new List<Claim>() {
-                    new Claim(ClaimTypes.MobilePhone, model.Phone),
-                    new Claim(ClaimTypes.Name, user.Firstname),
-                    new Claim(ClaimTypes.Surname, user.Lastname),
-                    new Claim(ClaimTypes.Role, "Admin"),
-                    new Claim(ClaimTypes.GivenName, user.Username),
-                    new Claim(ClaimTypes.PrimarySid,$"{user.Id}"),
-                    new Claim("OtherProperties","Example Role"),
-                    new Claim(ClaimTypes.CookiePath, user.Attachment.FileName)
-                };
+                List<Claim> claims = new List<Claim>();
+                if (user.Attachment is not null)
+                {
+                    claims.Add(new Claim(ClaimTypes.CookiePath, user.Attachment.FileName));
+                }
+                claims.Add(new Claim(ClaimTypes.MobilePhone, model.Phone));
+                claims.Add(new Claim(ClaimTypes.Name, user.Firstname));
+                claims.Add(new Claim(ClaimTypes.Surname, user.Lastname));
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                claims.Add(new Claim(ClaimTypes.GivenName, user.Username));
+                claims.Add(new Claim(ClaimTypes.PrimarySid, $"{user.Id}"));
+                claims.Add(new Claim("OtherProperties", "Example Role"));
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
                     CookieAuthenticationDefaults.AuthenticationScheme);

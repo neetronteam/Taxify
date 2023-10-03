@@ -6,9 +6,9 @@ namespace Taxify.DataAccess.Repositories;
 
 public class UnitOfWork:IUnitOfWork
 {
-    private readonly ITaxifyDbContext _context;
+    private readonly TaxifyDbContext _context;
 
-    public UnitOfWork(ITaxifyDbContext context)
+    public UnitOfWork(TaxifyDbContext context)
     {
         _context = context;
         CarRepository = new Repository<Car>(_context);
