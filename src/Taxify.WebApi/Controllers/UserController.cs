@@ -111,4 +111,13 @@ public class UsersController : ControllerBase
             Data = await this.userService.RemoveAsync(id) 
         });
     }
+
+    [HttpPatch("upgrade-role")]
+	public async ValueTask<IActionResult> UpgradeRoleAsync(long id, UserRole role)
+		=> Ok(new Response
+		{
+			StatusCode = 200,
+			Message = "Success",
+			Data = await this.userService.UpgradeRoleAsync(id, role)
+		});
 }

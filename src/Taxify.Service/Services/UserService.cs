@@ -8,6 +8,7 @@ using Taxify.Domain.Configuration;
 using Taxify.DataAccess.Contracts;
 using Taxify.Service.DTOs.Attachments;
 using System.ComponentModel.DataAnnotations;
+using Taxify.Domain.Enums;
 
 namespace Taxify.Service.Services;
 
@@ -153,4 +154,16 @@ public class UserService : IUserService
 
         return mapper.Map<List<UserResultDto>>(users);
     }
+
+    public async ValueTask<UserResultDto> UpgradeRoleAsync(long id, Role role)
+	{
+		User existUser = await this.unitOfWork.UserRepository.SelectAsync(u => u.Id.Equals(id))
+			?? throw new NotFoundException($"This user is not found with ID = {id}");
+
+        existUser.Role = role;
+		await this.unitOfWork.SaveAsync();
+
+		var result = this.mapper.Map<UserResultDto>(existUser);
+		return result;
+	}
 }

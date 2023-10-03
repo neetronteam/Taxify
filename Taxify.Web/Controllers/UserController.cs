@@ -28,6 +28,21 @@ public class UserController : Controller
         return View();
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AddUser(User user)
+    {
+        var mappedUser = this.mapper.Map<UserCreationDto>(user);
+         await this.userService.RegisterAsync(mappedUser);
+        
+        return RedirectToAction("Users");
+    }
+
+    public IActionResult AddUser()
+    {
+        return View();
+    }
+
+
     public async Task<IActionResult> Edit(User user)
     {
         return View(user);
