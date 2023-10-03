@@ -53,7 +53,7 @@ public class AuthController : Controller
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
                 claims.Add(new Claim(ClaimTypes.GivenName, user.Username));
                 claims.Add(new Claim(ClaimTypes.PrimarySid, $"{user.Id}"));
-                claims.Add(new Claim("OtherProperties", "Example Role"));
+                claims.Add(new Claim("OtherProperties", $"{user.Role}"));
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
                     CookieAuthenticationDefaults.AuthenticationScheme);
