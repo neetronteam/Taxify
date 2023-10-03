@@ -78,7 +78,6 @@ public class UserController : Controller
             Lastname = model.LastName,
             Phone = model.Phone,
             Username = model.Username,
-            Role = user.Role,
             Gender = user.Gender,
         };
 
