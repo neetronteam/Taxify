@@ -25,6 +25,9 @@
             <h3 id="button">Users</h3>
         </div>
         <div>
+            <h3 id="button">Count: @Model.Count()</h3>
+        </div>
+        <div>
             <button id="button" type="button" class="btn btn-secondary btn-rounded">ADD USER</button>
         </div>
     </div>
@@ -73,11 +76,31 @@
                     <td>@user.Role</td>
                     <td>
                         <a type="button" class="btn btn-outline-dark" href="@Url.Action("Edit","User",user)" data-mdb-ripple-color="dark">Edit</a>
-                        <a type="button" class="btn btn-outline-secondary" data-mdb-ripple-color="dark">Remove</a>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Remove</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" tabindex="-1" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="exampleModalLabel">!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        You are delete this user! 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-subtle" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 }
             
         </tbody>
     </table>
+
 </div>
