@@ -1,3 +1,4 @@
+using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using Taxify.Domain.Entities;
 using Taxify.Domain.Enums;
@@ -22,6 +23,18 @@ public class TaxifyDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasData(new User { Id = 1, Firstname = "Test", Lastname = "Testov", Phone = "+998881234567", Username = "Testbek", Password = "12345", Role = Role.Admin, IsDeleted = false, CreatedAt = DateTime.UtcNow, UpdatedAt = null });
+        modelBuilder.Entity<User>().HasData(new User
+        { 
+            Id = 1, 
+            Firstname = "Test", 
+            Lastname = "Testov", 
+            Phone = "+998881234567", 
+            Username = "Testbek", 
+            Password = BCrypt.Net.BCrypt.HashPassword(inputKey: "12345") ,
+            Role = Role.Admin, 
+            IsDeleted = false, 
+            CreatedAt = DateTime.UtcNow, 
+            UpdatedAt = null 
+        });
     }
 }
