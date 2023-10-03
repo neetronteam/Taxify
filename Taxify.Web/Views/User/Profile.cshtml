@@ -29,7 +29,7 @@
     }
     .sidebar {
 	    width: 25%;
-	    background-color: #234560;
+        background-color: rgb(99,102,106);    
     }
     .avatar-wrapper {
 	    border: 4px solid #fff;
@@ -64,7 +64,7 @@
 	    font-size: 16px;
 	    font-weight: 500;
 	    color: #fff;
-	    background-color: #234560;
+        background-color: rgb(99,102,106);    
 	    text-align: center;
 	    border-color: #7B8B9E;
     }
@@ -99,19 +99,20 @@
     }
     .nav-link-style {
 	    color: #fff;
-	    background-color: #234560;
+        background-color: rgb(99,102,106);
 	    font-weight: 500;
 	    padding: 20px;
-	    border-color: #234560;
+        border-color: rgb(99,102,106);
     }
     a:hover {
 	    color: #A6C3DB;
-	    background-color: #234560;
+            background-color: rgb(99,102,106);
+            ;
     }
     .nav-link-style.active {
-	    color: #234560;
+        color: rgb(99,102,106);     
 	    background-color: #fff;
-	    border: 1px solid #234560;
+        border: 1px solid rgb(99,102,106); 
 	    border-bottom: #fff;
     /* 	z-index: 1;
      */}
@@ -141,11 +142,11 @@
 	    .card .card-header {
 		    display: none;
 		    color: #fff;
-		    background-color: #234560;
+            background-color: rgb(99,102,106);
 		    font-weight: 500;
 		    padding: 20px;
 		    margin-left: 5px;
-		    border-color: #234560;
+            border-color: rgb(99,102,106);
 	    }
 	    .card .collapse {
 		    display: block;
@@ -177,11 +178,11 @@
 	    .card .card-header {
 		    display: none;
 		    color: #fff;
-		    background-color: #234560;
+            background-color: rgb(99,102,106);
 		    font-weight: 500;
 		    padding: 20px;
 		    margin-left: 5px;
-		    border-color: #234560;
+            border-color: rgb(99,102,106);
 	    }
 	    .card .collapse {
 		    display: block;
@@ -210,7 +211,7 @@
 	    }
 	    .nav-link-style {
 		    color: #fff;
-		    background-color: #234560;
+            background-color: rgb(99,102,106);
 		    border-bottom: 1px solid #7B8B9E;
 	    }
 	    .card-header a:hover {
@@ -218,7 +219,7 @@
 		    background-color: #A6C3DB;
 	    }
 	    .collapsed {
-		    background-color: #234560;
+            background-color: rgb(99,102,106);
 	    }
 	    li:nth-last-child(2), li:last-child {
 		    display: none;
@@ -228,7 +229,7 @@
 
 </head>
 
-<div class="container">
+<div class="container" style="margin-left:5%; margin-right:5%; margin-top:2%">
     <div class="row mt-2">
         <div class="card card-main">
             <div class="card sidebar">
@@ -248,17 +249,7 @@
                 </ul>
             </div>
             <div class="card content">
-                <ul id="tabs" class="nav nav-tabs nav-tabs-style" role="tablist">
-                    <li class="nav-item">
-                        <a id="tab-A" href="#pane-A" class="nav-link nav-link-style active" data-toggle="tab" role="tab">Personal Information</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="tab-B" href="#pane-B" class="nav-link nav-link-style" data-toggle="tab" role="tab">Security Settings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="tab-C" href="#pane-C" class="nav-link nav-link-style" data-toggle="tab" role="tab">Communication</a>
-                    </li>
-                </ul>
+                
                 <div id="content" class="tab-content" role="tablist">
                     <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
                         <div class="card-header" role="tab" id="heading-A">
@@ -266,17 +257,20 @@
                         </div>
                         <div id="collapse-A" class="collapse" role="tabpanel" data-parent="#content" aria-labelledby="heading-A">
                             <div class="card-body">
-                                <h3 class="fieldset-title"></h3>
-                                <div class="form-group row">
+                                <div class="form-group row m-0">
                                         <p class="text-center" style="color:red">
                                         <strong>@TempData["Message"]</strong>
                                         </p>
                                         @using (Html.BeginForm("ImageUpload", "User", FormMethod.Post,
                                         new { enctype = "multipart/form-data" }))
                                         {
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <input type="file" name="file" class="form-control-file" asp-for="@Model.ImagePath" />
-                                                <input type="submit" value="Upload" class="submit" />
+                                            <div class="d-flex justify-content-around">
+                                                <div class="col-md-10 col-sm-9 col-xs-12">
+                                                    <input type="file" name="file" class="form-control-file btn btn-dark border-2" asp-for="@Model.ImagePath" />
+                                                </div>
+                                                <div>
+                                                    <input type="submit" value="Upload" class="submit btn btn-dark border-2 p-2" />
+                                                </div>
                                             </div>
                                         }
                                 </div>
@@ -313,8 +307,11 @@
                                     </div>
                                     <div>
                                         <div>
-                                                <button type = "submit" class="btn btn-dark position-absolute bottom-0 end-0 me-4 mb-2 px-5"> Save </button>
+                                                <button type = "submit" class="btn btn-dark position-absolute bottom-0 end-0 me-4 mt-5 mb-2 px-5"> Save </button>
                                         </div>
+                                    </div>
+                                    <div >
+                                        <label class="col-md-2 col-sm-3 col-xs-12 col-form-label" style="color:white">salom</label>
                                     </div>
                                 </form>
                                  

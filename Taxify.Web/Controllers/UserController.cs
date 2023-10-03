@@ -1,129 +1,145 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.CodeAnalysis.CSharp;
-//using System.Security.Claims;
-//using Taxify.Service.DTOs.Attachments;
-//using Taxify.Service.DTOs.Users;
-//using Taxify.Service.Interfaces;
-//using Taxify.Web.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Taxify.Domain.Entities;
+using Taxify.Service.DTOs.Attachments;
+using Taxify.Service.DTOs.Users;
+using Taxify.Service.Interfaces;
+using Taxify.Web.Models;
 
-//namespace Taxify.Web.Controllers;
+namespace Taxify.Web.Controllers;
 
-//public class UserController : Controller
-//{
-//    private readonly IUserService userService;
-//    private readonly IAttachmentService attachmentService;
-//    private readonly ILogger<HomeController> _logger;
-//    public UserController(IUserService userService, ILogger<HomeController> logger, IAttachmentService attachmentService)
-//    {
-//        _logger = logger;
-//        this.userService = userService;
-//        this.attachmentService = attachmentService;
-//    }
+public class UserController : Controller
+{
+    private readonly IUserService userService;
+    private readonly IAttachmentService attachmentService;
+    private readonly ILogger<HomeController> _logger;
+    private readonly IMapper mapper;
+    public UserController(IUserService userService, ILogger<HomeController> logger, IAttachmentService attachmentService, IMapper mapper)
+    {
+        _logger = logger;
+        this.userService = userService;
+        this.attachmentService = attachmentService;
+        this.mapper = mapper;
+    }
 
-//    public IActionResult Index()
-//    {
-//        return View();
-//    }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-//    public async ValueTask<IActionResult> Users()
-//    {
-//        var result = await this.userService.RetrieveAllAsync();
-        
-//        return View(result);
-//    }
+    public async Task<IActionResult> Edit(User user)
+    {
+        return View(user);
+    }
 
-//    [HttpPost]
-//    public async Task<IActionResult> Update(UserModel model)
-//    {
-//        ClaimsPrincipal claimsUser = HttpContext.User;
-//        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
+    [HttpPost]
+    public async Task<IActionResult> Editer(User user)
+    {
+        var mappedUser = mapper.Map<UserUpdateDto>(user);
+        await this.userService.ModifyAsync(mappedUser);
 
-//        var user =  await this.userService.RetrieveByIdAsync(long.Parse(userId));
+        return RedirectToAction("Edit", user);
+    }
 
-//        var userUpdateDto = new UserUpdateDto
-//        {
-//            Id = long.Parse(userId),
-//            Firstname = model.FirstName,
-//            Lastname = model.LastName,
-//            Phone = model.Phone,
-//            Username = model.Username,
-//            Role = user.Role,
-//            Gender = user.Gender,
-//        };
+    public async ValueTask<IActionResult> Users()
+    {
+        var result = await this.userService.RetrieveAllAsync();
+        return View(result);
+    }
 
-//        var result = await this.userService.ModifyAsync(userUpdateDto);
+    [HttpPost]
+    public async Task<IActionResult> Update(UserModel model)
+    {
+        ClaimsPrincipal claimsUser = HttpContext.User;
+        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
 
-//        return RedirectToAction("Profile","User",routeValues: model);
-//    }
+        var user = await this.userService.RetrieveByIdAsync(long.Parse(userId));
 
-//    [HttpPost]
-//    public async Task<IActionResult> ImageUpload(UserModel model)
-//    {
-//        if(model.file is null)
-//        {
-//            TempData["Message"] = "Please upload image!";
-//            return RedirectToAction("Profile", "User");
-//        }
+        var userUpdateDto = new UserUpdateDto
+        {
+            Id = long.Parse(userId),
+            Firstname = model.FirstName,
+            Lastname = model.LastName,
+            Phone = model.Phone,
+            Username = model.Username,
+            Role = user.Role,
+            Gender = user.Gender,
+        };
 
-//        ClaimsPrincipal claimsUser = HttpContext.User;
-//        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
+        var result = await this.userService.ModifyAsync(userUpdateDto);
 
-//        var user = await this.userService.RetrieveByIdAsync(long.Parse(userId));
+        return RedirectToAction("Profile", "User", routeValues: model);
+    }
 
-//        var attachmentCreation = new AttachmentCreationDto
-//        {
-//            FormFile = model.file
-//        };
+    [HttpPost]
+    public async Task<IActionResult> ImageUpload(UserModel model)
+    {
+        if (model.file is null)
+        {
+            TempData["Message"] = "Please upload image!";
+            return RedirectToAction("Profile", "User");
+        }
 
-//        var result = await this.userService.UploadImageAsync(user.Id, attachmentCreation);
+        ClaimsPrincipal claimsUser = HttpContext.User;
+        string userId = claimsUser.FindFirst(ClaimTypes.PrimarySid).Value;
 
-//        var userModel = new UserModel
-//        {
-//            FirstName = result.Firstname,
-//            LastName = result.Lastname,
-//            Phone = result.Phone,
-//            ImageName = result.Attachment.FilePath,
-//            Username = result.Username,
-//            ImagePath = result.Attachment.FileName
-//        };
+        var user = await this.userService.RetrieveByIdAsync(long.Parse(userId));
 
-//        return RedirectToAction("Profile", "User", userModel);
-//    }
+        var attachmentCreation = new AttachmentCreationDto
+        {
+            FormFile = model.file
+        };
 
-//    public async Task<IActionResult> Profile()
-//    {
-//        ClaimsPrincipal claimsUser = HttpContext.User;
-        
-//        long userId = long.Parse(claimsUser.FindFirst(ClaimTypes.PrimarySid).Value);
+        var result = await this.userService.UploadImageAsync(user.Id, attachmentCreation);
 
-//        var result = await this.userService.RetrieveByIdAsync(userId);
+        var userModel = new UserModel
+        {
+            FirstName = result.Firstname,
+            LastName = result.Lastname,
+            Phone = result.Phone,
+            ImageName = result.Attachment.FilePath,
+            Username = result.Username,
+            ImagePath = result.Attachment.FileName
+        };
 
-//        var userModel = new UserModel();
+        return RedirectToAction("Profile", "User", userModel);
+    }
 
-//        if (result.Attachment is not null)
-//        {
-//            userModel = new UserModel
-//            {
-//                Username = result.Username,
-//                FirstName = result.Firstname,
-//                LastName = result.Lastname,
-//                Phone = result.Phone,
-//                ImagePath = result.Attachment.FilePath,
-//                ImageName = result.Attachment.FileName
-//            };
-//        }
-//        else
-//        {
-//            userModel = new UserModel
-//            {
-//                Username = result.Username,
-//                FirstName = result.Firstname,
-//                LastName = result.Lastname,
-//                Phone = result.Phone,
-//                ImageName = null
-//            };
-//        }
-//        return View(userModel);
-//    }
+    public async Task<IActionResult> Profile()
+    {
+        ClaimsPrincipal claimsUser = HttpContext.User;
 
-//}
+        long userId = long.Parse(claimsUser.FindFirst(ClaimTypes.PrimarySid).Value);
+
+        var result = await this.userService.RetrieveByIdAsync(userId);
+
+        var userModel = new UserModel();
+
+        if (result.Attachment is not null)
+        {
+            userModel = new UserModel
+            {
+                Username = result.Username,
+                FirstName = result.Firstname,
+                LastName = result.Lastname,
+                Phone = result.Phone,
+                ImagePath = result.Attachment.FilePath,
+                ImageName = result.Attachment.FileName
+            };
+        }
+        else
+        {
+            userModel = new UserModel
+            {
+                Username = result.Username,
+                FirstName = result.Firstname,
+                LastName = result.Lastname,
+                Phone = result.Phone,
+                ImageName = null
+            };
+        }
+        return View(userModel);
+    }
+
+}
